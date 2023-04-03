@@ -1,0 +1,15 @@
+{
+  "name": "node_ecommerce_system_mongodb",
+  "version": "1.0.0",
+  "description": "Ecommerce System Application using MongoDB",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Eng.Ahmed Ghannam",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^7.0.3"
+  }
+}
