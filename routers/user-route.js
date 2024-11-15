@@ -13,5 +13,4 @@ route.get('/:userId', userController.getUSerById);
 route.put('/:userId', userController.updateUserInfo);
 
 
-
 module.exports = route;

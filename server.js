@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const express = require('express');
+require('dotenv').config();
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const { check_Admin_authorities, check_Customer_authorities, checkUser } = require('./middlewares/auth')
@@ -17,7 +18,7 @@ const productImages = require('./routers/descriptiveImages-route');
 const sellerRouter = require('./routers/seller-route');
 const path = require('path');
 
-const dbURI = 'mongodb+srv://root1234:password_1234@ecommercecluster.s0mv1y2.mongodb.net/ecommerce?retryWrites=true&w=majority'
+const dbURI = process.env.DB_URL;
 
 mongoose.connect(dbURI).then((result) => {
     console.log("Connection stablished");
@@ -53,7 +54,7 @@ app.get('/', checkUser, (req, res) => {
 })
 
 
-app.use(`/account`, accountRoute);
+app.use(`${URI}/account`, accountRoute);
 app.use(`/users`, userRoute);
 app.use(`${URI}/country`, countryRoute);
 app.use(`${URI}/departments`, departmentRoute);
