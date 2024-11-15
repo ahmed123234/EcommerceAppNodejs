@@ -1,20 +1,17 @@
-const userController = require('../controllers/user-controller');
 const express = require('express');
+const userController = require('../controllers/user-controller');
 
-const router = express.Router();
+const route = express.Router();
 
-router.use(express.json());
+route.use(express.json());
 
-
-router.post('/register', userController.createUser);
-router.get('/:categoryId', userController.getUSerById);
-router.put('/:categoryId', userController.updateUserInfo);
-router.delete('/:categoryId', userController.deleteUser);
-
-
-router.use((req, res) => {
-    res.status(404).send("Not Found!");
-});
+route.get('/', userController.render_users);
+route.get('/getAll', userController.getAllUsers_get);
+route.get('/profiles/getProfile', userController.render_user_profile);
+route.get('/count', userController.getUsersCount);
+route.get('/:userId', userController.getUSerById);
+route.put('/:userId', userController.updateUserInfo);
 
 
-module.exports = router;
+
+module.exports = route;

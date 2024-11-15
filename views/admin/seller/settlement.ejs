@@ -1,0 +1,359 @@
+<head>
+    <%- include('./head')%>
+
+        <%- include('../../partials/admin/header.ejs')%>
+
+
+            <style>
+                * {
+                    box-sizing: border-box;
+                }
+
+                .main-settelment-info {
+                    width: 95%;
+                    padding: 15px 30px;
+                    margin: 10px auto;
+                    margin-top: 0;
+                    /* border: 2px solid black; */
+                    display: flex;
+                    align-items: flex-start;
+                    justify-content: center;
+                    /* flex-wrap: wrap; */
+                    overflow-x: auto;
+                }
+
+                .main-settelment-info div {
+                    padding: 15px;
+                    /* width: 20%; */
+                    /* flex-basis: 20%; */
+                    /* border: 1px solid black; */
+                    display: grid;
+                    align-items: center;
+                    text-align: center;
+                    /* justify-content: ; */
+                    grid-row: auto;
+                    grid-row-gap: 15px;
+                    cursor: pointer;
+                    /* justify-content: space-between;
+                    flex-direction: column; */
+                    transition: all .5s ease;
+                    background-color: rgba(0, 0, 0, .6);
+
+                }
+
+                .main-settelment-info label {
+                    color: #fff;
+                }
+
+                .main-settelment-info div:hover {
+                    /* opacity: .7; */
+                    /* transform: translateY(-10px); */
+                }
+
+                .main-settelment-info span {
+                    /* outline: none;
+                    border: none; */
+                    border-radius: 5px;
+                    width: 130px;
+                    padding: 8px;
+                    display: inline-block;
+                    background-color: #f9f7f7;
+                }
+
+                /* .Balance {
+                    background-color: rgb(14, 155, 14);
+                }
+
+                .Balance:hover {
+                   
+                    background-color: rgb(12, 132, 12);
+                }
+
+                .storeName {
+                    background-color: rgb(87, 126, 211);
+                }
+
+                .storeName:hover {
+                    background-color: rgb(75, 117, 207);
+                } */
+                /* .Balance:hover, .paidEarnings:hover {
+                    transform: translateY(10px);
+                } */
+
+                #payment-btn {
+                    width: 100px;
+                    /* padding: 15px; */
+                    /* display: inline-block; */
+                    cursor: pointer;
+                    background-color: rgb(99, 146, 245);
+                    color: #fff;
+                }
+
+                #payment-btn:hover {
+                    background-color: rgb(72, 125, 241);
+                }
+
+                .payment:hover {
+                    /* background-color: ; */
+                }
+
+                .settelement-earnings {
+                    width: 90%;
+                    margin: 20px auto;
+                    display: grid;
+                    grid-template-rows: auto;
+                    grid-template-columns: auto auto;
+                    align-items: center;
+                }
+
+                .settelement-earnings span {
+                    padding: 12px;
+                    padding-left: 25px;
+                    display: inline-block;
+                    transition: all .5s ease;
+                    cursor: pointer;
+                    text-align: center;
+                }
+
+                .settelement-earnings span:hover {
+                    /* transform: translateY(2px); */
+                    transform: scaleY(1.2);
+                }
+
+                #settelement {
+                    background-color: rgb(146, 146, 246);
+                }
+
+                #settelement:hover {
+                    color: #fff;
+                    background-color: rgb(103, 103, 244);
+                }
+
+                #earnings {
+                    background-color: rgb(230, 228, 228);
+                }
+
+                #earnings {
+                    background-color: rgb(202, 199, 199);
+                }
+
+                .btn-submit {
+                    background-color: rgb(26, 124, 222);
+                }
+
+                .btn-submit:hover {
+                    background-color: rgb(15, 102, 189);
+                }
+
+                .btns {
+                    margin-top: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .btn-cancel {
+                    text-decoration: none;
+                    color: #FFF;
+                    background-color: rgb(235, 157, 11);
+
+                }
+
+                .btn-cancel:hover {
+                    background-color: rgb(211, 146, 25);
+
+                }
+
+                .cover-cont {
+                    display: none;
+                    position: fixed;
+                    width: 100%;
+                    height: 100vh;
+                    top: 0;
+                    left: 0;
+                    /* z-index: 2; */
+                    background-color: rgba(0, 0, 0, .5);
+
+                }
+
+                .fa-close {
+                    position: absolute;
+                    top: 0%;
+                    right: 100%;
+                    display: inline-block;
+                    background-color: black;
+                    padding: 10px;
+                    color: #fff;
+                    cursor: pointer;
+                }
+
+                h2 {
+                    text-align: center;
+                    margin: 4% 0;
+                }
+
+                .alert-container {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+
+                    position: absolute;
+                    width: 50%;
+                    top: 20%;
+                    left: 50%;
+                    transform: translateX(-50%);
+
+                    /* position: absolute;
+                    transform: translate(-50px, -50px);
+                    top: 20%;
+                    left: 35%; */
+                    z-index: 6;
+                    width: 500px;
+                    margin: auto;
+                    height: auto;
+                    overflow: hidden;
+                    margin: auto;
+                    padding: 35px 20px;
+                    background-color: #fff;
+                    align-items: center;
+                }
+
+
+                @media only screen and (max-width: 1100px) {
+                    .main-settelment-info {
+                        justify-content: flex-start;
+                    }
+                }
+            </style>
+</head>
+
+<div class="container">
+
+
+    <!-- Create the main part of the admin page -->
+    <div class="main-content">
+
+        <%- include('../../partials/admin/minu.ejs')%>
+
+            <div class="displayedContent">
+
+                <div class="header">
+                    <h1>Ecom.<%= title %>
+                    </h1>
+
+                    <div>
+                        <i class="fa fa-tachometer icon-1" aria-hidden="true"></i>&nbsp;
+                        <a href="/">Home</a>&nbsp;
+                        <i class="fa-solid fa-angle-right"></i>&nbsp;
+                        <a href="/sellers/<%= action %>">Ecom.<%= title %></a>&nbsp;
+                    </div>
+
+                </div>
+
+                <div class="main-settelment-info">
+                    <div class="storeName">
+                        <label for="storeName">Store Name</label>
+                        <span id="storeName">Name</span>
+                    </div>
+                    <div class="totalEarnings">
+                        <label for="totalEarnings">Total Earnings</label>
+                        <span id="totalEarnings">0</span>
+                    </div>
+
+                    <div class="paidEarnings">
+                        <label for="paidEarnings">Paid Earnings</label>
+                        <span id="paidEarnings">0</span>
+                    </div>
+
+                    <div class="Balance">
+                        <label for="Balance">Balance</label>
+                        <span id="Balance">0</span>
+                        <!-- <span id="payment-btn"></span> -->
+                    </div>
+
+                    <div class="payment">
+                        <label for="" style="visibility: hidden;">ll</label>
+                        <span id="payment-btn">Payment</span>
+                    </div>
+                </div>
+
+                <div class="settelement-earnings">
+                    <span id="settelement">Settelement</span>
+                    <span id="earnings">Earnings</span>
+                </div>
+
+            </div>
+
+
+            <div class="cover-cont" id="cover-cont">
+                <div id="payment-cont" class="alert-container">
+                    <i id="close" class="fa fa-close"></i>
+                    <h2>Payment Update</h2>
+
+                    <form class="form" style="width: 90%;">
+
+                        <div class="row">
+                            <label for="balance" class="label-filed">Balance</label>
+                            <input type="text" name="balance" id="balance" placeholder="Balance" class="col input"
+                                required disabled>
+                        </div>
+
+                        <div class="row">
+                            <label for="ammount" class="label-filed">Ammount</label>
+                            <input type="text" name="ammount" id="ammount" placeholder="Ammount" class="col input"
+                                required>
+                        </div>
+
+                        <div class="btns">
+                            <button type="submit" class="btn btn-submit">Update</button>&nbsp;
+                            <a id="c1" class="btn btn-cancel">Cancel</a>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(() => {
+        // const payment = $();
+        const paymentcoverCont = $('#cover-cont');
+
+        paymentcoverCont.hide();
+
+        const payment_cont = $('#payment-cont');
+
+        payment_cont.slideUp(0);
+
+        $("#payment-btn").on("click", () => {
+            paymentcoverCont.toggle();
+            payment_cont.slideToggle(500);
+        })
+
+        $("#c1").on("click", () => {
+            payment_cont.slideToggle(500, () => {
+                paymentcoverCont.toggle();
+            })
+        });
+
+        $("#close").on("click", () => {
+            payment_cont.slideToggle(500, () => {
+                paymentcoverCont.toggle();
+            })
+        });
+
+
+    });
+</script>
+
+
+
+<!-- <script src="/scripts/adminScripts/category-functions.js"></script> -->
+
+<!-- <script src="/scripts/adminScripts//subcategories/subcategories.js"> </script> -->

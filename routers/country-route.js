@@ -6,12 +6,12 @@ const router = express.Router();
 router.use(express.json());
 
 
-router.post('/add', (req, res) => countryController.addCountry(req, res) );
-router.post('/addAll', (req, res) => countryController.addMultipleCountries(req, res));
-router.get('/:categoryId', (req, res) => countryController.getCountryById(req, res));
-router.put('/:categoryId', (req, res) => countryController.updateCountry(req, res));
-router.delete('/:categoryId', (req, res) => countryController.deleteCountry(req, res));
-router.get('/', (req, res) => countryController.getAllCountries(req, res));
+router.post('/add', countryController.addCountry);
+router.post('/addAll', countryController.addMultipleCountries);
+router.get('/:categoryId', countryController.getCountryById);
+router.put('/:categoryId', countryController.updateCountry);
+router.delete('/:categoryId', countryController.deleteCountry);
+router.get('/', countryController.getAllCountries);
 
 router.use((req, res) => {
     res.status(404).send("Not Found!");

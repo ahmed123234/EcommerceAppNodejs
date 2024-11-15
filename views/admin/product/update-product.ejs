@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EBuy | Ecommerce Website Design</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+    <script src="//code.jquery.com/jquery-1.10.2.js">
+    </script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js">
+    </script>
+
+    <link rel="stylesheet" href="/styles/admin.css">
+    <link rel="stylesheet" href="/styles/newcategory.css">
+    <link href="https://fonts.googleapis.com/css2?
+    family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a88d896878.js" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+
+</head> -->
+
+<%- include('../../partials/admin/head')%>
+
+<body>
+    <div class="container">
+
+        <%- include('../../partials/admin/header.ejs')%>
+
+
+            <!-- Create the main part of the admin page -->
+            <div class="main-content">
+
+
+                <%- include('../../partials/admin/minu.ejs')%>
+                <%- include('./main')%>
+                
+
+            </div>
+    </div>
+
+
+    <script src="/scripts/adminScripts/category-functions.js"></script>
+    <script src="/scripts/adminScripts/product/product.js"></script>
+
+    <script>
+        $(document).ready(async () => {
+
+            let form = document.querySelector('form');
+            let currentImage = $('#img');
+            let subImages = $('.image-list')
+
+            console.log(sessionStorage.getItem('productId'));
+
+            const res = await fetch(`/products/${sessionStorage.getItem('productId')}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            });
+
+            const product = await res.json();
+
+            console.log("product values are:", product);
+
+            name = product.name;
+            description = product.description;
+            let src = "/images/" + product.image;
+            currentImage.attr("src", src);
+            console.log("image is: ", currentImage.src);
+
+            let subImagesSrcs = product.images.images;
+            let index = 0;
+            for (let src of subImagesSrcs) {
+                $(subImages).append(`<img src="/images/${src}">`)
+            }
+
+            form.stock_type.value = product.stockType,
+            form.units_in_stock.value = product.unitsInStock,
+            form.name.value = name;
+            form.description.value = description;
+            form.local_name.value = product.localName;
+            // wait 2s before set
+            setTimeout(() => {
+                form.category.value = product.category;
+                form.subCategory.value = product.subCategory;
+                form.brand.value = product.brand;
+                // form.department.value,
+            }, 2000);
+
+
+            form.veg_status.value = product.vegStatus;
+            form.status.value = product.status === true ? "active" : "inActive";
+
+
+            // set the price/s field
+
+            // if (prices.length === 1) {
+
+            // } else {
+            //     let iteratorIndex = 0;
+            //     $.each($(".price-field"), function () {
+            //         const $this = $(this);
+            //         $this.attr("required");
+            //         $this.val(`${prices[iteratorIndex++].price}`);
+            //     })
+            // }
+
+
+            // if (quantities.length === 1) {
+
+            // } else {
+            //     let iteratorIndex = 0;
+            //     $.each($(".quantity-field"), function () {
+            //         const $this = $(this);
+            //         $this.attr("required");
+            //         $this.val(`${quantities[iteratorIndex++].quantity}`);
+            //     })
+            // }
+
+            let sizes = product.sizes;
+            let prices = product.prices;
+            let quantities = product.quantities;
+
+            let n = sizes.length;
+
+            if (n === 1) {
+                // set single size field
+                $("#singleSize").attr("required");
+                $("#singleSize").val(`${sizes[0].size}`);
+
+                // set single price field
+                $("#singlePrice").attr("required");
+                $("#singlePrice").val(`${prices[0].price}`);
+
+                // set single quantity field
+                $("#singleQuantity").attr("required");
+                $("#singleQuantity").val(`${quantities[0].quantity}`);
+
+
+            } else {
+                // $('#single').val("");
+                form.size_type.value = "1";
+                changeSizeType();
+                configSizeChange();
+                multiSizeToggle()
+
+                let sizeElements = document.getElementsByClassName("size-field");
+                let priceElements = document.getElementsByClassName("price-field");
+                let quantityElements = document.getElementsByClassName("quantity-field");
+
+                for (let iteratorIndex = 0; iteratorIndex < 3; iteratorIndex++) {
+                    sizeElements.item(iteratorIndex).value = sizes[iteratorIndex].size;
+                    priceElements.item(iteratorIndex).value = prices[iteratorIndex].price;
+                    quantityElements.item(iteratorIndex).value = quantities[iteratorIndex].quantity;
+                }
+
+                if (sizes.length > 3) {
+                    for (let iteratorIndex = 3; iteratorIndex < n; iteratorIndex++) {
+                        setMutipleSizeOption(sizes[iteratorIndex], prices[iteratorIndex], quantities[iteratorIndex]);
+                    }
+                }
+
+            }
+
+
+            // offer
+
+            console.log(product.offer);
+
+            if (product.offer !== null) {
+                addOfferEvent();
+
+                form.offer_startDate.value = new Date(product.offer.offerStartDate).toISOString().substring(0, 10);
+                form.offer_endDate.value = new Date(product.offer.offerEndDate).toISOString().substring(0, 10);
+                form.offer_name.value = product.offer.offerName;
+                form.discount_rate.value = product.offer.discount.discountPercent;
+            }
+
+
+            form.addEventListener('submit', async (e) => {
+
+                e.preventDefault();
+
+                let images = [];
+
+                if (localStorage.getItem('images') != undefined) {
+                    images = JSON.parse(localStorage.getItem('images'));
+                } else {
+                    images = subImagesSrcs;
+                }
+
+                let i = 0;
+
+                // form.image.value = "";
+                // form.images.value = "";
+                // let absImage = form.image.value.split('\\') ;
+
+                console.log("images of the product", images);
+
+                const logo =  product.image;
+                console.log("image: ", logo);
+
+
+                let priceClasses = document.getElementsByClassName("price");
+                let quantityClasses = document.getElementsByClassName("quantity");
+                let sizeClasses = document.getElementsByClassName("size");
+                let iteratorIndex = 0;
+
+                const sizes = [];
+                // initialize sizes array
+                if ($("#singleSize").attr("required") === "required") {
+                    sizes.push({ sizeType: "singleSize", size: $("#singleSize").val() });
+                } else {
+                    $.each($(".size-field"), function () {
+                        const $this = $(this);
+                        sizes.push({ sizeType: sizeClasses.item(iteratorIndex++).innerHTML, size: $this.val() });
+                    })
+                }
+
+
+                const prices = [];
+                iteratorIndex = 0;
+                // initialize sizes array
+                if ($("#singlePrice").attr("required") === "required") {
+                    prices.push({ priceType: "singlePrice", size: $("#singlePrice").val() });
+                } else {
+                    $.each($(".price-field"), function () {
+                        const $this = $(this);
+
+                        prices.push({ priceType: priceClasses.item(iteratorIndex++).innerHTML, price: $this.val() });
+                    })
+                }
+
+
+
+                const quantities = [];
+                iteratorIndex = 0;
+                // initialize sizes array
+                if ($("#singleQuantity").attr("required") === "required") {
+                    quantities.push({ quantityType: "singleQuantity", quantity: $("#singleQuantity").val() });
+                } else {
+                    $.each($(".quantity-field"), function () {
+                        const $this = $(this);
+
+                        quantities.push({ quantityType: quantityClasses.item(iteratorIndex++).innerHTML, quantity: $this.val() });
+                    })
+                }
+
+                const offerName = form.offer_name.value;
+
+                let offer = {};
+
+                console.log("offer name is ", offerName);
+
+                if (offerName !== undefined) {
+                    if (!checkOfferDates()) return false;
+
+                    const offerStartDate = form.offer_startDate.value;
+                    const offerEndDate = form.offer_endDate.value;
+                    const discountPercent = form.discount_rate.value;
+                    
+                    const discount = { discountPercent, _id: product.offer.discount._id }
+
+                    offer = { offerName, offerStartDate, offerEndDate, discount, _id: product.offer._id };
+
+                }
+
+                const requsetBody = {
+                    name: form.name.value,
+                    localName: form.local_name.value,
+                    category: form.category.value,
+                    subCategory: form.subCategory.value,
+                    brand: form.brand.value,
+                    description: form.description.value,
+                    // department: form.department.value,
+                    vegStatus: form.veg_status.value,
+                    image: logo,
+                    images: [images , { _id: product.images._id }],
+                    prices: prices,
+                    quantities: quantities,
+                    sizes: sizes,
+                    status: form.status.value === 'yes' ? true : false,
+                    offer,
+
+                }
+
+                console.log("before updating product is ", requsetBody);
+
+
+                const res = await fetch(`/products/${sessionStorage.getItem('productId')}`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(requsetBody)
+                });
+
+                const data = await res.json();
+
+                console.log(data);
+
+                // if (data) {
+                //     location.assign('/products');
+                // }
+            })
+        });
+
+
+    </script>
+
+</body>
+
+</html>

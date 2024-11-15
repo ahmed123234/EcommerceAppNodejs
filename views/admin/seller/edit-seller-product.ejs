@@ -1,0 +1,148 @@
+<div class="container">
+
+    <%- include('../../partials/admin/header.ejs')%>
+    <%- include('../../partials/admin/head.ejs')%>
+
+        <!-- Create the main part of the admin page -->
+        <div class="main-content">
+
+            <%- include('../../partials/admin/minu.ejs')%>
+
+                <div class="displayedContent">
+
+                    <div class="header">
+                        <h1>Ecom.Sellers</h1>
+
+                        <div>
+                            <i class="fa fa-tachometer icon-1" aria-hidden="true"></i>&nbsp;
+                            <a href="/">Home</a>&nbsp;
+                            <i class="fa-solid fa-angle-right"></i>&nbsp;
+                            <a href="/sellers/seller-requests">Ecom.Sellers</a>&nbsp;
+                            <i class="fa-solid fa-angle-right"></i>&nbsp;
+                            <a href="/sellers/<%= action %>"><%= type %> Product</a>&nbsp;
+                        </div>
+
+                    </div>
+
+
+                    <h2><%= type %> Seller</h2>
+
+                    <form class="form" style="width: 90%;">
+                        <section class="seller-section">
+                            <!-- <div class="seller-col"> -->
+                            <div class="row">
+                                <label for="seller" class="label-filed">Seller</label>
+                                <select class="col" id="seller" name="seller" required>
+                                    <!-- filled later -->
+                                </select>                            
+                            </div>
+
+                            <div class="row">
+                                <label for="category" class="label-filed">Seller</label>
+                                <select class="col" id="category" name="category" required>
+                                    <!-- filled later -->
+                                </select>                            
+                            </div>
+
+                            <div class="row">
+                                <label for="product" class="label-filed">Product</label>
+                                <select class="col" id="product" name="product" required>
+                                    <!-- filled later -->
+                                </select>                            
+                            </div>
+
+                            <div class="row">
+                                <label for="price" class="label-filed">Product Price</label>
+                                
+                                                            
+                            </div>
+
+                            <div class="row">
+                                <label for="stock" class="label-filed">Product Static Stock</label>
+                                <input class="col" value="0" id="stock" name="stock"
+                                    required>
+                            </div>
+
+
+                            <div class="row">
+                                <label for="stock_update" class="label-filed">Stock Daily Update</label>
+                            
+                                <div class="col">
+                                    <input type="radio" name="size_type" value="0" id="yes" required>
+                                    <label for="yes">Yes</label>&nbsp;&nbsp;
+                    
+                                    <input type="radio" name="size_type" value="1" id="no" required>
+                                    <label for="no">No</label>&nbsp;&nbsp;
+                                </div>
+
+                            </div>
+
+
+                            <div class="row">
+                                <label for="spot_delivery" class="label-filed">Spot Delivery</label>
+                            
+                                <div class="col">
+                                    <input type="radio" name="size_type" value="0" id="yes" required>
+                                    <label for="yes">Yes</label>&nbsp;&nbsp;
+                    
+                                    <input type="radio" name="size_type" value="1" id="no" required>
+                                    <label for="no">No</label>&nbsp;&nbsp;
+                                </div>
+
+                            </div>
+
+
+                            <div class="row">
+                                <label for="spot_delivery" class="label-filed">Available Time</label>
+                            
+                                <div class="col" style="width: 400px; display: -ms-inline-grid ; grid-template-columns: auto auto;" name="status" id="" required>
+                                    <div>
+                                        <label for="">Start time</label>
+                                        <input type="time" name="start" id="">
+                                    </div>
+
+                                    <div>
+                                        <label for="">End time</label>
+                                        <input type="time" name="start" id="">
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <!-- </div> -->
+
+
+                            <!-- <div class="seller-col"> -->
+                            <div class="row">
+                                <label for="store-name" class="label-filed">Delivery Note</label>
+                                <textarea class="col" placeholder="Delivary Note" id="store-name" name="store_name"
+                                    required></textarea>
+                            </div>
+
+                            <div class="row">
+                                <label for="status" class="label-filed">Status</label>
+                                <select class="col" name="status" id="" required>
+                                    <option value="active">Active</option>
+                                    <option value="inActive">inActive</option>
+                                </select>
+
+                            </div>
+
+                            <div class="btns">
+                                <button type="submit" class="btn btn-submit">submit</button>&nbsp;
+                                <a href="/products" class="btn btn-cancel" id="tooltip">cancel</a>
+                            </div>
+
+                        </section>
+                        
+
+                    </form>
+                </div>
+        </div>
+</div>
+
+
+
+<script src="/scripts/adminScripts/category-functions.js"></script>
+
+<script src="/scripts/adminScripts//subcategories/subcategories.js"> </script>

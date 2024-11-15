@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Products - EBuy</title>
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/account.css">
+    <!-- <script src="../static/scripts/script.js"></script> -->
+    <link href="https://fonts.googleapis.com/css2?
+    family=Poppins:wght@100;200;300;400;500;600;700&display=swap" 
+    rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a88d896878.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+        <div class="container">
+
+            <div class="navbar">
+                <div class="logo">
+                    <img src="/images/logo.png" alt="" width="125px">
+                </div>
+                <nav>
+                    <ul id="MenuItems">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/products.html">Products</a></li>
+                        <li><a href="">About</a></li>
+                        <li><a href="">Contact</a></li>
+                        <li><a href="/account.html">Account</a></li>
+                    </ul>
+                </nav>
+
+                <a href="/cart"><img src="/images/cart.png" alt="" width="30px" height="30px"></a>
+                <a href="/index"><img src="/images/menu.png" class="menu-icon" alt="" onclick="menuToggle()"></a>
+            
+            </div>
+
+        </div>
+
+        <% if (email) {%>
+            <h1>Welcome back <%= email%></h1>
+        <% }%>
+
+    <!-- Acoount page container
+    <div class="account-page">
+        <div class="conatiner">
+            
+        </div>
+    </div> -->
+
+
+    <!-- ------------- footer ------------ -->
+    <%- include('./partials/footer.ejs')%>
+
+
+    <script>
+        let MenuItems = document.getElementById("MenuItems");
+        MenuItems.style.maxHeight = "0px";
+
+        function menuToggle(){
+            if (MenuItems.style.maxHeight == "0px")
+                MenuItems.style.maxHeight = "200px"
+            else
+                MenuItems.style.maxHeight = "0px"
+        }
+    </script>
+
+</body>
+</html>

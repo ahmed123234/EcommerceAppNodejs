@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EBuy | Ecommerce Website Design</title>
+  <!-- mdn css-->
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+
+  <!-- swiper css -->
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" /> -->
+
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.4.0/css/dataTables.dateTime.min.css">
+  <link rel="stylesheet" href="../../extensions/Editor/css/editor.dataTables.min.css"> -->
+
+
+  <!-- https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css -->
+
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css">
+
+
+  <link rel="stylesheet" href="/styles/admin.css">
+
+  <link href="https://fonts.googleapis.com/css2?
+    family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+
+  <script src="https://kit.fontawesome.com/a88d896878.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="container">
+
+    <%- include('../../partials/admin/header.ejs')%>
+
+      <!-- Create the main part of the admin page -->
+      <div class="main-content">
+
+        <%- include('../../partials/admin/minu.ejs')%>
+
+          <div class="displayedContent">
+
+            <div style="width:95%;  margin: 2% auto;">
+              <table id="example" class="display nowrap" style="width: 100%;">
+
+              </table>
+            </div>
+          </div>
+
+
+          <div class="cover">
+            <div class="alert">
+              <p>Are you sure you want to delete that category</p>
+              <div>
+                <a class="yes">Delete</a>
+                <a class="no">Cancel</a>
+              </div>
+
+            </div>
+          </div>
+
+
+          <!-- <div class="container table-responsive">
+            <a href="" class="editor-create"></a>
+            <div style="width:95%;  margin: 2% auto;">
+              <table id="example" class="display order-column" style="width: 100%;">
+
+              </table>
+            </div>
+          </div> -->
+
+          <!-- <div class="displayedContent swiper mySwiper input-group"> -->
+
+          <!-- <div class="search-cont">
+                    <form class="search">
+                        <label for="search"><i class="fa-solid fa-magnifying-glass"></i></label>
+                        <input type="text"  id="search" placeholder="Search for customer">
+                    </form>
+                </div> -->
+
+          <!-- <input type="text" class="form-control" id="myInput" placeholder="phrase in:column1,column2" /> -->
+
+          <!-- <div class="options"> -->
+          <!-- <i class="fa-solid fa-bars-sort"></i> -->
+          <!-- <i class="fa-duotone fa-bars-sort"></i> -->
+          <!-- <i class="fa-sharp fa-regular fa-bars-sort"></i> -->
+          <!-- <i class="fa-solid fa-arrow-up-z-a"></i>
+              <span class="sort">Sort by <i class="fa fa-angle-left"></i></span>
+              <div class="sort-list">
+
+                <div>
+                  <i class="fa-solid fa-list"></i>&nbsp;
+                  <span>Sort by name</span>
+                </div>
+
+                <div>
+                  <i class="fa-solid fa-list"></i>&nbsp;
+                  <span>Sort by status</span>
+                </div>
+                <div>
+                  <i class="fa-solid fa-list"></i>&nbsp;
+                  <span>Sort by role</span>
+                </div>
+              </div>
+
+            </div> -->
+
+
+
+          <!-- Swiper -->
+          <!-- <div class="swiper-wrapper">
+
+            </div> -->
+          <!-- <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div> -->
+
+          <!-- <div class="swiper-pagination"></div> -->
+
+          <!-- <div class="users">
+                    <div>
+                        <span>username</span>
+                        <span>mobile</span>
+                        <span>email</span>
+                        <span>date</span>
+                        <span>status</span>
+                    </div>
+                </div> -->
+
+          <!-- <div class="pagination">
+
+                </div> -->
+      </div>
+  </div>
+  </div>
+
+  <!-- Swiper JS -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+  <script src="/scripts/adminScripts/users.js"></script> -->
+
+  <!-- Initialize Swiper -->
+  <!-- <script>
+
+    var swiper = new Swiper(".mySwiper", {
+      spaceBetween: 30,
+      hashNavigation: {
+        watchState: true,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+
+  </script> -->
+
+  <!-- <script>
+    const sortList = document.querySelector('div.sort-list');
+    var ancor = document.querySelector('span.sort');
+
+    const options = document.querySelector('.options');
+
+    sortList.style.maxHeight = '0px'
+
+    options.addEventListener('mouseleave', () => {
+
+      sortList.style.maxHeight = '0px';
+
+    })
+
+
+    ancor.addEventListener('click', () => {
+      if (sortList.style.maxHeight == '0px') {
+        sortList.style.maxHeight = '250px'
+      } else {
+        sortList.style.maxHeight = '0px';
+      }
+    });
+  </script> -->
+
+
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <script>
+
+    $(document).ready(function () {
+      $("#myInput").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function () {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+  </script> -->
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+
+  <!-- <script src="https://cdn.datatables.net/datetime/1.4.0/js/dataTables.dateTime.min.js"></script>
+  <script src="https://editor.datatables.net/extensions/Editor/js/dataTables.editor.min.js"></script> -->
+
+
+
+  <script>
+    var editor;
+    $(document).ready(function () {
+      let dt = $('#example').DataTable({
+        responsive: {
+          details: {
+            display: $.fn.dataTable.Responsive.display.modal({
+              header: function (row) {
+                var data = row.data();
+                console.log(data);
+                return 'Details for ' + data.email;
+              }
+            }),
+            renderer: $.fn.dataTable.Responsive.renderer.tableAll()
+          }
+        },
+        order: [
+          [1, 'desc'],
+          [0, 'asc']
+        ],
+        selectable: true,
+        // "loading": true,
+        "processing": true,
+        // "serverSide": true,
+        "initComplete": function (settings, json) {
+          $('#example').show();
+        },
+        "select": true,
+        "bFilter": true,
+        "bInfo": false,
+        "bPaginate": true,
+        "columns": [
+          {
+            "data": "_id",
+            "name": "_id",
+            "title": "user_ID",
+            orderable: true
+          },
+          {
+            "data": "username",
+            "name": "username",
+            "title": "Username",
+            orderable: true
+          },
+          {
+            "data": "enabled",
+            "name": "enabled",
+            "title": "Status",
+            orderable: true,
+            render: function (data, type) {
+              if (data == true) {
+                return '<span class="badge badge-success">Active</span>'
+              }
+              if (!data) {
+                return '<span class="badge badge-dark">Deactive</span>'
+              }
+            }
+          },
+          {
+            "data": "email",
+            "name": "email",
+            "title": "Email",
+          },
+          {
+            data: null,
+            className: "dt-center editor-edit",
+            defaultContent: '<i class="fa fa-solid fa-eye"/>',
+            orderable: false
+          },
+          {
+            data: null,
+            className: "dt-center editor-edit",
+            defaultContent: '<a><i class="fa fa-pencil"/></a>',
+            orderable: false
+          },
+          {
+            data: null,
+            className: "dt-center editor-delete",
+            defaultContent: '<span><i class="fa fa-trash"/></span>',
+            orderable: false
+          }
+        ],
+        "language": {
+          "emptyTable": "No data to show!"
+        },
+
+        "ajax": {
+          "type": "get",
+          "url": "/users/getAll",
+          "content-type": "application/json, utf-8",
+          "dataType": "json",
+          "dataSrc": ""
+        },
+        searching: true,
+        // ordering: true
+      });
+
+      $('#example').on('click', 'a', function () {
+        // alert("activityTable");
+        var data = dt.row($(this).parents('tr')).data();
+        // alert("here");
+        sessionStorage.setItem('categoryId', data._id)
+        // alert("The ID is: " + sessionStorage.getItem('categoryId'));
+
+        location.assign('/categories/updateCategory');
+      });
+
+      const cover = $(".cover");
+
+      $('#example').on('click', 'span', function () {
+
+        cover.css('display', 'block');
+        // cover.toggle(1000);
+
+        const yes = $('.yes');
+        const no = $('.no');
+
+
+
+        yes.on('click', async () => {
+          console.log(sessionStorage.getItem('categoryId'));
+          const res = await fetch(`/categories/${sessionStorage.getItem('categoryId')}`, {
+            method: "DELETE",
+
+            headers: {
+              'Content-Type': 'application/json'
+            }
+
+          });
+
+          const jsonData = await res.json();
+
+          console.log(jsonData);
+          location.assign('/categories');
+        });
+
+        no.on('click', () => {
+          // alert.style.display = 'none';
+          // cover.style.display = 'none';
+          // cover.toggle(1000);
+          cover.css('display', 'none');
+        });
+      });
+
+    });
+
+    $.fn.dataTable.ext.errMode = 'alert';
+  </script>
+</body>
+
+</html>

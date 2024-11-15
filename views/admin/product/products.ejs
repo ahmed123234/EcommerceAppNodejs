@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EBuy | Ecommerce Website Design</title>
+
+    <link href="https://fonts.googleapis.com/css2?
+    family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css">
+
+    <link rel="stylesheet" href="styles/admin.css">
+
+    <link href="https://fonts.googleapis.com/css2?
+    family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/a88d896878.js" crossorigin="anonymous"></script>
+
+
+</head> -->
+
+<%- include('../../partials/admin/datatable-head')%>
+
+<body>
+
+    <%- include('../../partials/admin/datatable-body')%>
+
+    <script>
+        $(document).ready(() => {
+
+            const coulmns = [
+                // {
+                //     "data": "_id",
+                //     "name": "_id",
+                //     "title": "Record _id",
+                // },
+                {
+                    "data": "name",
+                    "name": "name",
+                    "title": "Name",
+                },
+                {
+                    "data": "description",
+                    "name": "description",
+                    "title": "Description",
+                },
+
+                {
+                    data: 'category.name',
+                    name: 'category',
+                    title: 'Category'
+                },
+                {
+                    data: 'subCategory.name',
+                    name: 'sunCategory',
+                    title: 'Sub Category'
+                },
+                // {
+                //     data: 'department.name',
+                //     name: 'department',
+                //     title: 'Department'
+                // }
+            ];
+
+            console.log("initialize the document part 1");
+
+            const requestDetails = {
+                ajaxURL: '/products/getAll',
+                mainURL: "/products",
+                updateURL: '/products/update-product',
+                mainPage: "/products",
+                sessionProperty: 'productId'
+            }
+
+            initializeDoc(coulmns, requestDetails);
+        })
+    </script>
+
+
+
+
+    <!-- <script>
+        let count = 0;
+        $.extend($.fn.dataTable.defaults, {
+            responsive: true
+        });
+        $(document).ready(function () {
+            let dt = $('#example').DataTable({
+                // responsive: true,
+                responsive: {
+                    details: {
+                        display: $.fn.dataTable.Responsive.display.modal({
+                            header: function (row) {
+                                var data = row.data();
+                                console.log(data);
+                                return 'Details for ' + data.name;
+                            }
+                        }),
+                        renderer: $.fn.dataTable.Responsive.renderer.tableAll()
+                    }
+                },
+                order: [
+                    [2, 'desc'],
+                    [0, 'asc']
+                ],
+                selectable: true,
+                serverside: true,
+                "loading": true,
+                "processing": true,
+                "initComplete": function (settings, json) {
+                    $('#example').show();
+                },
+                "select": true,
+                "bFilter": true,
+                "bInfo": false,
+                "bPaginate": true,
+                "columns": [
+                    {
+                        "data": "_id",
+                        "name": "_id",
+                        "title": "Record _id",
+                        visible: false
+                    },
+                    {
+                        data: null,
+                        title: "No",
+                        className: "dt-center ",
+                        defaultContent: ++count,
+                    },
+                    {
+                        "data": "productName",
+                        "name": "productName",
+                        "title": "Name",
+                    },
+                    {
+                        "data": "category.name",
+                        "name": "category",
+                        "title": "Category",
+                    },
+                    {
+                        data: "subCategory.name",
+                        name: "subCategory",
+                        title: "Sub Category"
+                    },
+                    {
+                        data: "department.name",
+                        name: "department",
+                        title: "Department"
+                    },
+                    {
+                        data: null,
+                        className: "dt-center editor-edit",
+                        defaultContent: '<a><i class="fa fa-pencil"/></a>',
+                        orderable: false
+                    },
+                    {
+                        data: null,
+                        className: "dt-center editor-delete",
+                        defaultContent: '<span><i class="fa fa-trash"/></span>',
+                        orderable: false
+                    }
+                ],
+                "language": {
+                    "emptyTable": "No data to show!"
+                },
+
+                "ajax": {
+                    "type": "get",
+                    "url": "/products/getAll",
+                    "content-type": "application/json, utf-8",
+                    "dataType": "json",
+                    "dataSrc": ""
+                },
+                // search: {
+                //     return: true,
+                // },
+                // searching: true
+
+            });
+
+            $('#example').on('click', 'a', function () {
+                // alert("activityTable");
+                var data = dt.row($(this).parents('tr')).data();
+                // alert("here");
+                sessionStorage.setItem('productId', data._id)
+                // alert("The ID is: " + sessionStorage.getItem('categoryId'));
+
+                location.assign('/products/update-product');
+            });
+
+            const cover = $(".cover");
+
+            $('#example').on('click', 'span', function () {
+
+                var data = dt.row($(this).parents('tr')).data();
+                sessionStorage.setItem('productId', data._id)
+
+                cover.css('display', 'block');
+                // cover.toggle(1000);
+
+                const yes = $('.yes');
+                const no = $('.no');
+
+
+
+                yes.on('click', async () => {
+                    console.log(sessionStorage.getItem('productId'));
+                    const res = await fetch(`/products/${sessionStorage.getItem('productId')}`, {
+                        method: "DELETE",
+
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+
+                    });
+
+                    const jsonData = await res.json();
+
+                    console.log(jsonData);
+                    location.assign('/products');
+                });
+
+                no.on('click', () => {
+                    // alert.style.display = 'none';
+                    // cover.style.display = 'none';
+                    // cover.toggle(1000);
+                    cover.css('display', 'none');
+                });
+            });
+        });
+
+        // $.fn.dataTable.ext.errMode = 'alert';
+    </script> -->
+</body>
+
+</html>

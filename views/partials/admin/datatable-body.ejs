@@ -1,0 +1,72 @@
+<div class="container">
+
+    <%- include('./header.ejs')%>
+        <!-- Create the main part of the admin page -->
+
+        <div class="main-content">
+
+            <%- include('./minu.ejs')%>
+
+                <div class="displayedContent">
+                    <!-- <div>
+                        <div class="sub1" id="Sub2" onclick="location.assign('/products/new-product')">
+                            <i class="fa-sharp fa-solid fa-tags icon-9"></i>&nbsp;
+                            <span>Add New</span>
+                        </div>
+                    </div> -->
+
+                    <div class="header">
+                        <h1>Ecom.<%= title %></h1>
+                
+                        <div>
+                            <i class="fa fa-tachometer icon-1" aria-hidden="true"></i>&nbsp;
+                            <a href="/">Home</a>&nbsp;
+                            <i class="fa-solid fa-angle-right"></i>&nbsp;
+                            <a href="<%= action%>">Ecom.<%= title %></a>&nbsp;
+                        </div>
+                
+                    </div>
+
+                    <% if(add !== null) { %>
+
+                        <div style="float: right; margin-right: 30px; margin-bottom: 30px;"   >
+                            <div class="sub1" id="Sub2" onclick="location.assign('<%= add.url %>')">
+                                <i class="fa-sharp fa-solid fa-tags icon-9"></i>&nbsp;
+                                <span>Add New</span>
+                            </div>
+                        </div>
+
+
+                    <% } %>
+
+
+                    <div style="width:95%;  margin: 2% auto;">
+                        <table id="example" class="display nowrap" style="width: 100%;">
+
+                        </table>
+                    </div>
+
+                </div>
+
+
+                <div class="cover">
+                    <div class="alert">
+                        <p>Are you sure you want to delete that request</p>
+                        <div>
+                            <a class="yes">Delete</a>
+                            <a class="no">Cancel</a>
+                        </div>
+
+                    </div>
+                </div>
+
+        </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+
+
+<script src="/scripts/adminScripts/common/common.js"></script>

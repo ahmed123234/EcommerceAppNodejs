@@ -5,14 +5,21 @@ const router = express.Router();
 
 router.use(express.json());
 
+router.get('/', subCategoryController.render_subCategories);
+router.get('/getAll', subCategoryController.getAllSubCategories);
 
-router.post('/add', (req, res) => subCategoryController.addSubCategory(req, res) );
-router.post('/addMany', (req, res) => subCategoryController.addMultipleSubCategories(req, res));
-router.get('/:categoryId', (req, res) => subCategoryController.getSubCategoryById(req, res));
-router.patch('/:categoryId', (req, res) => subCategoryController.updateSubCategory(req, res));
-router.delete('/:categoryId', (req, res) => subCategoryController.deleteSubCategory(req, res));
-router.delete('/', (req, res) => subCategoryController.deleteAllSubCategories(res));
-router.get('/', (req, res) => subCategoryController.getAllSubCategories(res));
+router.get('/sub-category', subCategoryController.queryAboutSubCategory);
+
+router.get('/add', subCategoryController.addSubCategory_get);
+router.post('/', subCategoryController.addSubCategory_post);
+router.post('/addMany', subCategoryController.addMultipleSubCategories);
+
+router.get('/update-subcategory', subCategoryController.updateCategory_get);
+router.get('/:subCategoryId', subCategoryController.getSubCategoryById);
+router.patch('/:subCategoryId', subCategoryController.updateSubCategory);
+router.delete('/:subCategoryId', subCategoryController.deleteSubCategory);
+
+router.delete('/', subCategoryController.deleteAllSubCategories);
 
 router.use((req, res) => {
     console.log(req);

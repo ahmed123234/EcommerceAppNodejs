@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EBuy | Ecommerce Website Design</title>
+    <!-- <link rel="stylesheet" href="../../static/styles/style.css"> -->
+    <link rel="stylesheet" href="/styles/admin.css">
+    <link href="https://fonts.googleapis.com/css2?
+    family=Poppins:wght@100;200;300;400;500;600;700&display=swap" 
+    rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a88d896878.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container">
+
+        <%- include('../../partials/admin/header.ejs')%>
+        
+
+        <!-- Create the main part of the admin page -->
+
+        <div class="main-content">
+            <%- include('../../partials/admin/minu.ejs')%>
+            
+            <div class="displayedContent">
+                <div class="sub-cont">
+                    <h1>Ecom.Customers</h1>
+                    <div>
+                        <i class="fa fa-tachometer"></i>
+                        <span onclick="history.go(0)">Home</span>
+                        <i class="fa-solid fa-angle-right"></i>
+                        <span onclick="history.back()">Ecom.Customers</span>
+                        <i class="fa-solid fa-angle-right"></i>
+                        <span>View</span>
+                    </div>
+                </div>
+
+                <div class="profile">
+                    <div class="profile-image">
+                        <img id="image" src="/images/buy-1.jpg" alt="">
+                        <h2 id="name">Ahmad Ghannm</h2>
+                        <h4 id="mobile">09038444</h4>
+                    </div>
+
+                    <div class="profile-info">
+                        <span id="sub1" class="active sub-header" onclick="">Personal Details</span>
+                        <span id="sub2" class="sub-header">Delivery Address</span>
+
+                        <div id="details" class="personal-details">
+
+                            <div class="icons">
+                                <span class="user-icon"><i class="fa-solid fa-user icon"></i></span>
+                                <span class="mobile-icon"><i class="fa-solid fa-mobile"></i></span>
+                                <span class="letter-icon"><i class="fa-solid fa-envelope icon"></i></span>
+                                <span class="calender-icon"><i class="fa-solid fa-calendar-days icon"></i></span>
+                            </div>
+
+                            <div class="user-info">
+                                <input id="username" class="info">
+                                <input id="userMobile" class="info">
+                                <input id="userEmail" class="info">
+                                <input id="joinDate" class="info">
+                            </div>
+
+                        </div>
+
+
+                        <div id="address" class="personal-details">
+
+                            <div class="icons">
+                                <span class="location-icon"><i class="fa-solid fa-location-dot icon"></i></span>
+                            </div>
+
+                            <div class="user-info">
+                                <div  class="info address">Ahmad</div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    
+                </div>
+
+            </div> 
+        </div>
+    </div>
+
+    <!-- <script src="../../static/scripts/adminScripts/admin-common.js"></script> -->
+    <script src="/scripts/adminScripts/user-profile.js"></script>
+
+</body>
+
+</html>

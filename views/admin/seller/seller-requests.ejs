@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../../partials/admin/datatable-head')%>
+
+<body>
+
+    <%- include('../../partials/admin/datatable-body')%>
+    <script>
+        $(document).ready(() => {
+
+            const coulmns = [
+                // {
+                //     "data": "_id",
+                //     "name": "_id",
+                //     "title": "Record _id",
+                // },
+                {
+                    "data": "user.username",
+                    "name": "name",
+                    "title": "Name",
+                },
+                {
+                    "data": "user.mobile",
+                    "name": "mobile",
+                    "title": "Mobile",
+                },
+
+                {
+                    data: 'store.storeName',
+                    name: 'store',
+                    title: 'Store Name'
+                },
+                {
+                    data: "requestStatus",
+                    name: "requestStatus",
+                    title: "requestStatus"
+                },
+                {
+                    data: 'requestDate',
+                    name: 'requestDate',
+                    title: 'Request Date'
+                },
+
+            ];
+
+            console.log("initialize the document part 1");
+
+            const requestDetails = {
+                ajaxURL: '/sellers/requests?request_status=Pending',
+                mainURL: "/sellers/new-requests",
+                mainPage: "/sellers/seller-requests",
+                updateURL: '/sellers/review-seller',
+                sessionProperty: 'sellerId'
+            }
+
+            initializeDoc(coulmns, requestDetails);
+        })
+    </script>
+</body>
+
+</html>

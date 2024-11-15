@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">  
+
+<%- include('../../partials/admin/datatable-head')%>
+
+    <%- include('./head')%>
+
+        <head>
+
+            <style>
+                .alert-container {
+                    width: 600px;
+                }
+
+                .product-name {
+                    text-align: center;
+                    padding: 8px;
+                    display: block;
+                    /* margin: 7px auto; */
+                    /* background-color: rgb(220, 210, 230); */
+                    /* color: #fff; */
+                    cursor: pointer;
+                    box-sizing: border-box;
+                }
+
+                .product-name:hover {
+                    /* background-color: rgb(132, 29, 228); */
+                    box-shadow: 1px 1px 10px 10px gray;
+                }
+
+                .data {
+                    /* display: inline-block;
+                    margin-top: 2px;
+                    color: blueviolet; */
+                }
+
+                @media only screen and (max-width: 700px) {
+                    .alert-container {
+                        width: 90%;
+                    }
+
+                    .form .row {
+                        flex-direction: column;
+                        align-items: flex-start;
+                    }
+
+                }
+            </style>
+
+            <link rel="stylesheet" href="/styles/newcategory.css">
+
+        </head>
+
+        <body>
+
+            <%- include('../../partials/admin/datatable-body')%>
+
+
+                <!-- product details -->
+
+                <div class="cover-cont" id="cc1">
+                    <div id="product-cont" class="alert-container">
+                        <i id="product-close" class="fa fa-close"></i>
+                        <h2 class="mainTitle">Product Details</h2>
+
+                        
+                        <form class="form" style="width: 90%;">
+
+                            <div class="row">
+                                <label for="name" class="label-filed">Name</label>
+                                <input class="col" type="text" placeholder="Name" id="name" name="name" readonly>
+                            </div>
+
+
+                            <div class="row">
+                                <label for="local_name" class="label-filed">Local Name</label>
+                                <input class="col" type="text" placeholder="Local Name" id="localName" name="local_name"
+                                    readonly>
+                            </div>
+
+                            <div class="row">
+                                <label for="category" class="label-filed">Category</label>
+                                <input type="text" aria-sort="ascending" title="Select a category for the product"
+                                    class="col form-control" id="category" name="category" readonly>
+
+                            </div>
+
+
+                            <div class="row">
+                                <label for="subCategory" class="label-filed">Sub Category</label>
+                                <input title="Select a sub-category for the product" class="col" id="subCategory"
+                                    name="subCategory" readonly>
+                            </div>
+
+                            <div class="row">
+                                <label for="brand" class="label-filed">Brand</label>
+                                <input type="text" aria-sort="ascending" title="Select a brand form the brands list"
+                                    class="col" id="brand" name="brand" readonly>
+                            </div>
+
+                            <div class="row">
+                                <label for="veg_status" class="label-filed">Veg / Non Veg</label>
+
+                                <div class="col">
+                                    <input type="radio" name="veg_status" value="N/A" id="N/A" readonly>
+                                    <label for="N/A">N/A</label>&nbsp;&nbsp;
+
+                                    <input type="radio" name="veg_status" value="veg" id="veg" readonly>
+                                    <label for="veg">Veg</label>&nbsp;&nbsp;
+
+                                    <input type="radio" name="veg_status" value="non-veg" id="non-veg" readonly>
+                                    <label for="non-veg">Non Veg</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <label for="description" class="label-filed">Description</label>
+                                <textarea class="col" placeholder="Description" id="description" name="description"
+                                    readonly aria-readonly="true"></textarea>
+                            </div>
+
+                            <div class="row">
+                                <label for="upload-button" class="label-filed">Product Main Image</label>
+                                <div class="col image-container">
+                                    <div class="image-display">
+                                        <img id="img" src="/images/basket1.png" alt="basket image">
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <!-- <div class="row">
+                            <label for="" class="label-filed">Product Sub Images</label>
+                            <div class="col image-container">
+                                <div class="image-display image-list">
+                                    <img  src="/images/no-image.png"  style="opacity: .5;" alt="basket image">
+                                    <img  src="/images/no-image.png" style="opacity: .5;" alt="basket image">
+                                    <img  src="/images/no-image.png" style="opacity: .5;" alt="basket image">
+                                    <img  src="/images/no-image.png" style="opacity: .5;" alt="basket image">
+                                </div>
+        
+                            </div>
+                        </div> -->
+
+                            <div class="row">
+                                <label for="stock_type" class="label-filed">Stock Type</label>
+                    
+                                <div class="col">
+                                    <input type="radio" name="stock_type" value="Single Stock" id="singleStock" required readonly >
+                                    <label for="singleStock">Single Stock</label>&nbsp;&nbsp;
+                    
+                                    <input type="radio" name="stock_type" value="Multi Stocks(related to size)" id="multiStock" required readonly>
+                                    <label for="multiStock">Multi Stocks(related to size)</label>&nbsp;&nbsp;
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <label for="stockUnits" class="label-filed">units In Stock</label>
+                                <input  class="col" type="number" name="units_in_stock" value="0" id="tockUnits" required>
+                    
+                            </div>
+
+
+                        </form>
+
+                    </div>
+                </div>
+                <!-- <script src="/scripts/adminScripts/product/product.js"></script> -->
+                <script src="/scripts/adminScripts/product/update-product.js"></script>
+
+                <script>
+                    $(document).ready(() => {
+
+                        const coulmns = [
+                            // {
+                            //     "data": "_id",
+                            //     "name": "_id",
+                            //     "title": "Record _id",
+                            //     visible: false
+                            // },
+                            {
+                                "data": "seller",
+                                "name": "seller",
+                                "title": "Seller Name",
+                            },
+
+                            {
+                                data: 'storeName',
+                                name: 'storeName',
+                                title: 'Store Name',
+                                render: (data) => {
+                                    if (data) {
+                                        return `<span class="data">${data}</span>`
+                                    }
+
+                                }
+                            },
+
+                            {
+                                data: "product.name",
+                                name: "product",
+                                title: "Product",
+                                render: (data) => {
+                                    if (data) {
+                                        return `<span class="product-name"> ${data} </span>`;
+                                    }
+                                }
+                            }
+
+                            // {
+                            //     data: "products[].name",
+                            //     name: "products[].name",
+                            //     title: "Product Name"
+                            // },
+
+                            // {
+                            //     data: 'products',
+                            //     name: "products",
+                            //     title: "products",
+                            //     render: function (data, type, row) {
+                            //         if (type === 'display') {
+                            //             // var priceBreaks = data[0].name;
+                            //             var output = [];
+                            //             let length = data.length;
+
+                            //             // for (let i = 0; i < length; i++) {
+                            //             //     // console.log(data[i]);
+                            //             //     if (data[i] !== null)
+                            //             //         output.push(`
+                            //             //         <span class="product-name">
+                            //             //             ${data[i]["name"]}
+                            //             //         </span>`);
+
+                            //             //         $(".product-name").on("click", () => {
+                            //             //             console.log(data[i]);
+                            //             //             // alert(data[i].name)
+                            //             //         })
+                            //             // }
+                            //             data.forEach(function (item, index) {
+                            //                 console.log(item);
+                            //                 output.push(
+
+                            //                 `<span id=${item["_id"]} class="product-name">
+                            //                         ${item["name"]}
+                            //                     </span>`
+                            //                 );
+
+                            //                 // $(`#${item["_id"]}`).on("click", () => {
+                            //                 //         console.log(item["name"]);
+
+                            //                 //         // alert(data[i].name)
+                            //                 //     })
+
+
+                            //             });
+                            // return output.join('');
+                            //         }
+                            //         return data;
+                            //     }
+                            // },
+
+                            // {
+                            //     data: 'store.storeStatus',
+                            //     name: 'store',
+                            //     title: 'Service status',
+
+                            //     render: (data) => {
+
+                            //         if (data) {
+                            //             return '<span class="badge badge-success">active</span>'
+                            //         } else {
+                            //             return '<span class="badge badge-dark">inActive</span>'
+                            //         }
+
+                            //     }
+                            // }, 
+
+                        ];
+
+
+
+                        console.log("initialize the document part 1");
+
+                        const requestDetails = {
+                            ajaxURL: '/sellers/products',
+                            mainURL: "/sellers/products",
+                            mainPage: "/sellers/products/view",
+                            updateURL: '',
+                            sessionProperty: 'sellerId'
+                        }
+
+                        initializeDoc(coulmns, requestDetails);
+
+                    })
+                </script>
+
+                <script>
+                    $(document).ready(() => {
+                        const prdouct_cover_cont = $('#cc1');
+                        const product_cont = $('#product-cont');
+
+                        prdouct_cover_cont.hide();
+
+                        product_cont.slideUp(0)
+
+                        $("#c1").on("click", () => {
+                            product_cont.slideToggle(500, () => {
+                                prdouct_cover_cont.toggle();
+                            })
+                        });
+
+                        $("#product-close").on("click", () => {
+                            product_cont.slideToggle(500, () => {
+                                prdouct_cover_cont.toggle();
+                            })
+                        })
+
+                        $('#example').on('click', 'span.product-name', function () {
+
+                            showDetails($(this));
+
+                            prdouct_cover_cont.toggle(0, () => {
+
+                            });
+
+                            product_cont.slideToggle(500);
+                        });
+
+                        function showDetails($this) {
+
+                            const data = dt.row($this.parents('tr')).data();
+
+                            console.log(data);
+                            console.log(data.product.name);
+
+                            ViewProductInfo(data.product);
+
+                        }
+
+                    });
+                </script>
+
+        </body>
+
+</html>

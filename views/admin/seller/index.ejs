@@ -1,0 +1,343 @@
+<div class="container">
+
+    <%- include('../../partials/admin/header.ejs')%>
+
+
+        <!-- Create the main part of the admin page -->
+        <div class="main-content">
+
+            <%- include('../../partials/admin/minu.ejs')%>
+
+                <div class="displayedContent">
+
+                    <div class="header">
+                        <h1>Ecom.Sellers</h1>
+
+                        <div>
+                            <i class="fa fa-tachometer icon-1" aria-hidden="true"></i>&nbsp;
+                            <a href="/">Home</a>&nbsp;
+                            <i class="fa-solid fa-angle-right"></i>&nbsp;
+                            <a href="/sellers/seller-requests">Ecom.Sellers</a>&nbsp;
+                            <i class="fa-solid fa-angle-right"></i>&nbsp;
+                            <a href="/sellers/<%= action %>"><%= type %> Seller</a>&nbsp;
+                        </div>
+
+                    </div>
+
+
+                    <h2><%= type %> Seller</h2>
+
+                    <form class="form" style="width: 90%;">
+                        <h2 class="title">Basic Information</h2>
+                        <section class="seller-section">
+                            <!-- <div class="seller-col"> -->
+                            <div class="row">
+                                <label for="name" class="label-filed">Username</label>
+                                <input class="col" placeholder="Seller Name" id="name" name="username" required>
+                            </div>
+
+                            <div class="row">
+                                <label for="mobile" class="label-filed">Mobile Number</label>
+                                <input class="col" placeholder="Seller Mobile Number" id="mobile" name="mobile"
+                                    required>
+                            </div>
+
+
+                            <div class="row">
+                                <label for="email" class="label-filed">Email Id</label>
+                                <input class="col" placeholder="Seller Email" id="email" name="email" required>
+                            </div>
+                            <!-- </div> -->
+
+
+                            <!-- <div class="seller-col"> -->
+                            <div class="row">
+                                <label for="store-name" class="label-filed">Store Name</label>
+                                <input class="col" placeholder="store Name" id="store-name" name="store_name"
+                                    required>
+                            </div>
+
+                            <div class="row">
+                                <label for="License" class="label-filed">Store License Number</label>
+                                <input class="col" placeholder="License Number" id="License"
+                                    name="store_license_number" required>
+                            </div>
+                            <!-- </div> -->
+
+                        </section>
+
+
+                        <h2 class="title">Store Address</h2>
+                        <section class="seller-section">
+                            <!-- <div class="seller-col"> -->
+                            <div class="row">
+                                <label for="addressLine1" class="label-filed">Address line 1</label>
+                                <input class="col" placeholder="Address line 1" id="addressLine1"
+                                    name="addressLine1" required>
+                            </div>
+
+                            <div class="row">
+                                <label for="addressLine2" class="label-filed">Address line 2</label>
+                                <input class="col" placeholder="Address line 2" id="addressLine2"
+                                    name="addressLine2" required>
+                            </div>
+
+                            <div class="row">
+                                <label for="city" class="label-filed">City</label>
+                                <input class="col" placeholder="City" id="city" name="city" required>
+                            </div>
+
+                            <div class="row">
+                                <label for="state" class="label-filed">State</label>
+                                <input class="col" placeholder="State" id="state" name="state" required>
+                            </div>
+
+
+                            <div class="row">
+                                <label for="district" class="label-filed">District</label>
+                                <input class="col" placeholder="District" id="district" name="district" required>
+                            </div>
+
+                            <div class="row">
+                                <label for="postOffice" class="label-filed">Post Office </label>
+                                <input class="col" placeholder="Post Office" id="postOffice" name="postOffice"
+                                    required>
+                            </div>
+
+                            <div class="row">
+                                <label for="longitude" class="label-filed">Longitude</label>
+                                <input class="col" placeholder="Longitude" id="longitude" name="longitude" required>
+                            </div>
+
+
+                            <div class="row">
+                                <label for="latitude" class="label-filed">Latitude</label>
+                                <input class="col" placeholder="Latitude" id="latitude" name="latitude" required>
+                            </div>
+
+                            <!-- </div> -->
+
+
+                            <!-- <div class="seller-col"> -->
+
+
+
+                            <div class="row">
+                                <label for="pincode" class="label-filed">Pincode</label>
+                                <input class="col" placeholder="Pincode" id="pincode" name="pincode" required>
+                            </div>
+
+
+                            <div class="row">
+                                <label for="area" class="label-filed">Service Area (Km)</label>
+                                <input class="col" placeholder="Service Area (Km)" id="area" name="serviceArea"
+                                    required>
+                            </div>
+                            <!-- </div> -->
+                        </section>
+
+
+                        <h2 class="title">Store Settings</h2>
+                        <section class="seller-section">
+
+                            <div class="row">
+                                <label for="category" class="label-filed">Store Category</label>
+                                <select class="col" id="category" name="category" required>
+                                    <!-- filled later -->
+                                </select>
+                            </div>
+
+                            <div class="row">
+                                <label for="slots" class="label-filed">Delivary Slots</label>
+                                <select class="col" placeholder="Select Delivary Slots"
+                                    value="Select Delivary Slots" id="slots" name="deliverySlots" required>
+                                    <!-- filled later -->
+
+                                    <option>
+                                        select slot
+                                    </option>
+                                    <option value="A slot every 30mn with a maximum of 5 orders per slot">
+                                        A slot every 30mn with a maximum of 5 orders per slot
+                                    </option>
+
+                                    <option value="A slot every 20mn with a maximum of 4 orders per slot">
+                                        A slot every 20mn with a maximum of 4 orders per slot
+                                    </option>
+
+                                    <option value="A slot every 10mn with a maximum of 2 orders per slot">
+                                        A slot every 10mn with a maximum of 2 orders per slot
+                                    </option>
+
+                                    <option value="">
+                                        <button type="button" onclick="() => addCustomSlot('slots')">custom
+                                            slot</button>
+                                    </option>
+                                </select>
+                            </div>
+
+
+                            <div class="row">
+                                <label for="preparationTime" class="label-filed">Preparation Time(
+                                    Minutes)</label>
+                                <input class="col" placeholder="0" value="0" id="preparationTime"
+                                    name="preparationTime" required>
+                            </div>
+
+                            <!-- <div class="row">
+                                <label for="IBR" class="label-filed">IBR Commission</label>
+
+                                <div class="sub-fields col">
+                                    <input placeholder="0" class="" value="0" id="IBR" name="IBR" required>
+                                    <select class="" placeholder="% (percentage)" value="percentage" id="percentage"
+                                        name="percentage" required></select>
+                                </div>
+
+                            </div> -->
+
+                            <div class="row">
+                                <label for="days" class="label-filed">Working Days</label>
+                                <div class="sub-fields col">
+
+                                    <select class="" placeholder="from" id="days" name="from" required>
+                                        <option>from Day</option>
+                                        <option value="Saturday">Saturday</option>
+                                        <option value="Sunday">Sunday</option>
+                                        <option value="Monday">Monday</option>
+                                        <option value="Tuesday">Tuesday</option>
+                                        <option value="Wednesday">Wednesday</option>
+                                        <option value="Tthursday">Tthursday</option>
+                                        <option value="Friday">Friday</option>
+                                    </select>
+                                    <select class="" placeholder="to" id="" name="to" required>
+                                        <option>To Day</option>
+                                        <option value="Saturday">Saturday</option>
+                                        <option value="Sunday">Sunday</option>
+                                        <option value="Monday">Monday</option>
+                                        <option value="Tuesday">Tuesday</option>
+                                        <option value="Wednesday">Wednesday</option>
+                                        <option value="Tthursday">Thursday</option>
+                                        <option value="Friday">Friday</option>
+                                    </select>
+
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <label for="hours" class="label-filed">Working Hours</label>
+                                <div class="sub-fields col">
+                                    <input type="time" class="" placeholder="Opened at" id="hours" name="opened_at"
+                                        required step="1">
+                                    <input type="time" class="" placeholder="Closed at" id="" name="closed_at"
+                                        required step="1">
+
+                                </div>
+                            </div>
+
+
+
+                            <div class="row">
+                                <label for="spot" class="label-filed">Spot Delivary Slots</label>
+                                <select class="col" placeholder="Select Delivary Slots" id="spot"
+                                    name="spotDeliverySlots" required>
+
+                                    <!-- filled later -->
+
+                                    <option>
+                                        select slot
+                                    </option>
+                                    <option value="A slot every 30mn with a maximum of 5 orders per slot">
+                                        A slot every 5mn with a maximum of 5 orders per slot
+                                    </option>
+
+                                    <option value="A slot every 20mn with a maximum of 4 orders per slot">
+                                        A slot every 2mn with a maximum of 4 orders per slot
+                                    </option>
+
+                                    <option value="A slot every 10mn with a maximum of 2 orders per slot">
+                                        A slot every 10mn with a maximum of 12 orders per slot
+                                    </option>
+
+                                </select>
+                                <button type="button" onclick="addCustomSlot('spot')">custom spot slot</button>
+
+
+                            </div>
+
+                            <div class="row">
+                                <label for="charge" class="label-filed">Packing Charge($) </label>
+                                <input class="col" placeholder="0" value="0" id="charge" name="packingCharge"
+                                    required>
+                            </div>
+
+                            <div class="row">
+                                <label for="status" class="label-filed">Status</label>
+                                <select class="col" name="status" id="" required>
+                                    <option value="active">Active</option>
+                                    <option value="inActive">inActive</option>
+                                </select>
+
+                            </div>
+
+                        </section>
+
+
+
+                        <h2 class="title">Store Logo</h2>
+                        <section style="display: grid; grid-template-columns: auto auto; grid-gap: 10px;">
+
+                            <div class="row">
+                                <label for="upload-button" class="label-filed">Store Logo</label>
+                                <div class="col image-container">
+                                    <div class="image-display">
+                                        <img id="img" src="/images/defaultimage.png" alt="store Logo">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </section>
+
+                        <div class="btns">
+                            <button type="submit" class="btn btn-submit">update</button>&nbsp;
+                            <a class="btn btn-cancel" onclick=" history.back()">Cancel</a>
+                        </div>
+                    </form>
+
+
+                </div>
+
+
+                <div class="cover">
+                    <div class="alert" id="userInputCont">
+                        <i id="close" class="fa-solid fa-xmark user-btn"></i>
+                        <h3>create Custom spot delivery</h3>
+
+                        <div class="custom-slot">
+                            <div class="slot-option">
+                                <label for="" class="label-filed">Slot duration</label>
+                                <input type="number" name="" id="" placeholder="Slot duration in Minutes">
+                            </div>
+
+
+                            <div class="slot-option">
+
+                                <label for="" class="label-filed">Number of Orders</label>
+                                <input type="text" placeholder="Maximum Orders per slot">
+
+                            </div>
+
+                            <span class="user-btn" id="next"><i class="fa-solid fa-arrow-right"></i></span>
+
+                        </div>
+
+
+                    </div>
+                </div>
+        </div>
+</div>
+
+
+
+<script src="/scripts/adminScripts/category-functions.js"></script>
+
+<script src="/scripts/adminScripts//subcategories/subcategories.js"> </script>

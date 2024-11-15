@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EBuy | Ecommerce Website Design</title>
+    <link rel="stylesheet" href="/styles/admin.css">
+    <link rel="stylesheet" href="/styles/newcategory.css">
+    <link href="https://fonts.googleapis.com/css2?
+    family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a88d896878.js" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div class="container">
+
+        <%- include('../../partials/admin/header.ejs')%>
+
+
+            <!-- Create the main part of the admin page -->
+            <div class="main-content">
+
+                <%- include('../../partials/admin/minu.ejs')%>
+
+                    <div class="displayedContent">
+
+                        <div class="header">
+                            <h1>Ecom.Sizes</h1>
+
+                            <div>
+                                <i class="fa fa-tachometer icon-1" aria-hidden="true"></i>&nbsp;
+                                <a href="/dashboard">Home</a>&nbsp;
+                                <i class="fa-solid fa-angle-right"></i>&nbsp;
+                                <a href="/sizes">Ecom.Sizes</a>&nbsp;
+                                <i class="fa-solid fa-angle-right"></i>&nbsp;
+                                <a href="/sizes/new-size">New Size</a>&nbsp;
+                            </div>
+
+                        </div>
+
+
+                        <h2>New Product Size</h2>
+
+                        <form class="form">
+
+                            <div class="row">
+                                <label for="size">Size</label>
+                                <input class="col" type="number" placeholder="Size" id="size" name="size" required>
+                            </div>
+
+                            <div class="row">
+                                <label for="unit">Size Unit</label>
+                                <select class="col" placeholder="select size unit " id="unit" name="unit" required>
+                                    <!-- filled by jquery -->
+                                </select>
+
+                            </div>
+
+
+                            <div class="row">
+                                <label for="name">Name</label>
+                                <div class="col">
+                                    <input class="" style="display: block; width: 100%;" type="text"
+                                        placeholder="select size unit " id="name" name="name" readonly required>
+                                    <div id="error"></div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="row">
+                                <label for="type">Type</label>
+                                <div class="col">
+                                    <select name="type" id="">
+                                        <option value="Small">Small</option>
+                                        <option value="Normal">Normal</option>
+                                        <option value="Large">Large</option>
+                                        <option value="Medium">Meduim</option>
+                                        <option value="Normal" data-name="Normal">Normal</option>
+                                        <option value="X-Small" data-name="X-Small">X-Small</option>
+                                        <option value="X-Large" data-name="X-Large">X-Large</option>
+                                        <option value="XX-Large" data-name="XX-Large">XX-Large</option>
+                                        <option value="XXX-Large" data-name="XXX-Large">XXX-Large</option>
+                                        <option value="Over Size" data-name="Over Size">Over Size</option>
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <label for="stockValue">Stock Value</label>
+                                <input class="col" type="number" placeholder="Stock Value" id="stockValue"
+                                    name="stock_value" required min="1.0" max="1000.0"></input>
+                            </div>
+
+
+                            <div class="btns">
+                                <button type="submit" class="btn btn-submit">Submit</button>&nbsp;
+                                <a href="/sizes" class="btn btn-cancel">Cancel</a>
+                            </div>
+
+                        </form>
+
+                    </div>
+            </div>
+    </div>
+
+    <script src="/scripts/adminScripts/product-size/product-size.js"></script>
+
+    <script>
+        $(document).ready(() => {
+
+            const form = document.querySelector('form');
+
+            form.addEventListener('submit', async (e) => {
+
+                e.preventDefault();
+
+                const size = form.size.value;
+                const stockValue = form.stock_value.value;
+
+                const name = form.name.value;
+                const unit = form.unit.value;
+                const type = form.type.value;
+
+
+                const res = await fetch('/sizes', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ name, stockValue, size, unit, type })
+                });
+
+                const response = await res.json();
+
+                console.log(response);
+
+                if (response.error) {
+                    const error = $('#error');
+                    error.html("");
+                    error.html(response.error.name + " refill size or unit to generate a unique size");
+                    error.css('color', 'red');
+                    error.css('padding', '20px 10px');
+
+                } else {
+                    location.assign('/sizes');
+                }
+            })
+        });
+    </script>
+
+</body>
+
+</html>

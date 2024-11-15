@@ -1,6 +1,6 @@
 const countryModel = require('../models/country-model');
 
-const addCountry = async (req, res) => {
+addCountry = async (req, res) => {
     const countryInfo = req.body;
     const country = new countryModel({
         name: countryInfo.name
@@ -12,7 +12,7 @@ const addCountry = async (req, res) => {
 }
 
 
-const addMultipleCountries = async (req, res) => {
+addMultipleCountries = async (req, res) => {
     const countries = req.body;
     const countries_ = [];
 
@@ -33,7 +33,7 @@ const addMultipleCountries = async (req, res) => {
    res.json(countries_);
 }
 
-const getCountryById = (req, res) => {
+getCountryById = (req, res) => {
     const countryId = req.params.countryId;
 
     countryModel.findById(countryId).then((result) => {
@@ -43,7 +43,7 @@ const getCountryById = (req, res) => {
     })
 }
 
-const deleteCountry = (req, res) => {
+deleteCountry = (req, res) => {
     const countryId = req.params.countryId;
 
     countryModel.findByIdAndDelete(countryId).then((result) => {
@@ -53,7 +53,7 @@ const deleteCountry = (req, res) => {
     })
 }
 
-const updateCountry = (req, res) => {
+updateCountry = (req, res) => {
     const countryId = req.params.userId;
     const country_name = req.body;
 
@@ -68,7 +68,7 @@ const updateCountry = (req, res) => {
 }
 
 
-const getAllCountries = async (req, res) => {
+getAllCountries = async (req, res) => {
    
    res.send(await countryModel.find());
 }

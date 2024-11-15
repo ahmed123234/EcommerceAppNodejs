@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EBuy | Ecommerce Website Design</title>
+    <link rel="stylesheet" href="/styles/admin.css">
+    <link rel="stylesheet" href="/styles/newcategory.css">
+    <link href="https://fonts.googleapis.com/css2?
+    family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a88d896878.js" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+
+</head> -->
+
+<%- include('../../partials/admin/head')%>
+
+<body>
+    <div class="container">
+
+        <%- include('../../partials/admin/header.ejs')%>
+
+
+            <!-- Create the main part of the admin page -->
+            <div class="main-content">
+
+                <%- include('../../partials/admin/minu.ejs')%>
+
+                <%- include('./main')%>
+
+                
+            </div>
+    </div>
+
+    <script src="/scripts/adminScripts/category-functions.js"></script>
+
+    <script>
+
+        const form = document.querySelector('form');
+
+        form.addEventListener('submit', async (e) => {
+
+            e.preventDefault();
+
+            const name = form.name.value;
+            const description = form.description.value;
+            let absImage = form.image.value.split('\\');
+            const logo = absImage[2];
+
+            console.log("image: ", logo);
+
+            const res = await fetch('/brands', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ name, description, logo })
+            });
+
+            const data = await res.json();
+
+            console.log(data);
+
+            if (data) {
+                location.assign('/brands');
+            }
+        })
+    </script>
+
+</body>
+
+</html>

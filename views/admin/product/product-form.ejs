@@ -1,0 +1,367 @@
+<form class="form" style="width: 90%;">
+
+    <h2 class="title">Product Main Info</h2>
+    <section>
+
+        <div class="row">
+            <label for="name" class="label-filed">Name</label>
+            <input class="col" type="text" placeholder="Name" id="name" name="name" required>
+        </div>
+
+
+        <div class="row">
+            <label for="local_name" class="label-filed">Local Name</label>
+            <input class="col" type="text" placeholder="Local Name" id="localName"
+                name="local_name" required>
+        </div>
+
+        <div class="row">
+            <label for="category" class="label-filed">Category</label>
+            <select aria-sort="ascending" title="Select a category for the product"
+                class="col form-control" id="category" name="category" required>
+                <!-- opttions will be added by js or jquery -->
+            </select>
+        </div>
+
+
+        <div class="row">
+            <label for="subCategory" class="label-filed">Sub Category</label>
+            <select aria-sort="ascending" title="Select a sub-category for the product"
+                class="col" id="subCategory" name="subCategory" required>
+                <!-- opttions will be added by js or jquery -->
+            </select>
+        </div>
+
+        <div class="row">
+            <label for="brand" class="label-filed">Brand</label>
+            <select aria-sort="ascending" title="Select a brand form the brands list"
+                class="col" id="brand" name="brand" required>
+                <!-- opttions will be added by js or jquery -->
+            </select>
+        </div>
+
+        <div class="row">
+            <label for="veg_status" class="label-filed">Veg / Non Veg</label>
+
+            <div class="col">
+                <input type="radio" name="veg_status" value="N/A" id="N/A" required>
+                <label for="N/A">N/A</label>&nbsp;&nbsp;
+
+                <input type="radio" name="veg_status" value="veg" id="veg" required>
+                <label for="veg">Veg</label>&nbsp;&nbsp;
+
+                <input type="radio" name="veg_status" value="non-veg" id="non-veg" required>
+                <label for="non-veg">Non Veg</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <label for="description" class="label-filed">Description</label>
+            <textarea class="col" placeholder="Description" id="description" name="description"
+                required></textarea>
+        </div>
+
+    </section>
+
+    <!-- <hr> -->
+
+    <h2 class="title">Product Images</h2>
+    <section>
+
+        <div class="row">
+            <label for="upload-button" class="label-filed">Product Main Image</label>
+            <div class="col image-container">
+                <div class="image-display">
+                    <img id="img" src="/images/basket1.png" alt="basket image">
+
+                    <!-- images to be displayed here -->
+                </div>
+                <!-- <div id="image-display"></div> -->
+                <input class="upload-button" id="upload-button" type="file" name="image"
+                    <% if(required === true) { %>
+                        required
+                    <% } %> 
+                    
+                    multiple accept="image/*"
+                >
+                <!-- <input type="radio" name="dailyProd" value="No" id="no"> -->
+                <label class="uploadButton" for="upload-button">
+                    <i class="fa-solid fa-upload"></i>&nbsp;
+                    Choose or Drop Photos
+                </label>
+                <div id="hint">image type .png, .jpeg. Size 100 x 100</div>
+                <div class="upload-error"></div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <label for="" class="label-filed">Product Sub Images</label>
+            <div class="col image-container">
+                <div class="image-display image-list">
+                    <!-- images to be displayed here -->
+                    <!-- <img  src="/images/no-image.png"  style="opacity: .5;" alt="basket image">
+                <img  src="/images/no-image.png" style="opacity: .5;" alt="basket image">
+                <img  src="/images/no-image.png" style="opacity: .5;" alt="basket image">
+                <img  src="/images/no-image.png" style="opacity: .5;" alt="basket image"> -->
+                </div>
+
+                <input id="upload-button-sub" type="file" name="images"
+                    <% if(required === true) { %>
+                        required
+                    <% } %>
+                    
+                    multiple accept="image/*"
+                >
+
+                <label class="uploadButton" for="upload-button-sub">
+                    <i class="fa-solid fa-upload"></i>&nbsp;
+                    Choose or Drop Photos
+                </label>
+                <div id="hint">image type .png, .jpeg. Size 100 x 100</div>
+                <div class="upload-error"></div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- <hr> -->
+
+    <h2 class="title">Product More Info</h2>
+
+    <section>
+        <div class="row">
+            <label class="label-filed" for="size_type">Size Type</label>
+
+            <div class="col">
+                <input type="radio" name="size_type" value="0" id="single" required>
+                <label for="single">Single Size</label>&nbsp;&nbsp;
+
+                <input type="radio" name="size_type" value="1" id="multi" required>
+                <label for="multi">Multi Sizes</label>&nbsp;&nbsp;
+            </div>
+        </div>
+
+
+        <div class="row">
+            <label for="sizes" class="label-filed">Available Sizes</label>
+            <div class="col">
+                <div class="singleSizeList">
+                    <select aria-sort="ascending" title="Select size/s form the sizes list"
+                        class="col" id="singleSize" name="sizes" required>
+                        <!-- opttions will be added by js or jquery -->
+                    </select>
+
+                </div>
+                <div class="multiSizeList">
+                    <div class="sizeList">
+                        <div class="row">
+                            <label for="small" class="size">Small size</label>
+                            <select aria-sort="ascending" data-name="Small"
+                                title="Select size/s form the sizes list" class="col size-field"
+                                name="sizes">
+                                <!-- opttions will be added by js or jquery -->
+                            </select>
+                        </div>
+
+                        <div class="row">
+                            <label for="medium" class="size">Medium size</label>
+                            <select aria-sort="ascending" data-name="Medium"
+                                title="Select size/s form the sizes list"
+                                class="col size-field form-control" name="sizes">
+                                <!-- opttions will be added by js or jquery -->
+                            </select>
+                        </div>
+
+
+                        <div class="row">
+                            <label for="large" class="size">Large size</label>
+                            <div class="col" style="display: flex;align-items: center;">
+                                <select data-name="Large" aria-sort="ascending" style="flex: 1;"
+                                    title="Select size/s form the sizes list"
+                                    class="col size-field" name="sizes">
+                                    <!-- opttions will be added by js or jquery -->
+                                </select>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <button id="moreSize" type='button' class="check-btn user-btn">add size <i
+                            class="fa-solid fa-plus"></i></button>
+
+                    <i class="fa-solid fa-trash size-trash fa-shake"></i>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <label for="" class="label-filed">Price</label>
+
+            <div class="col">
+
+                <div class="singleSizeList">
+                    <input type="number" name="price" id="singlePrice" required>
+                </div>
+                <div class="multiSizeList">
+                    <div class="priceList">
+                        <div class="row">
+                            <label for="small" class="price">Small price</label>
+                            <input type="text" name="price" id="" class="col price-field">
+                        </div>
+
+                        <div class="row">
+                            <label for="medium" class="price">Medium price</label>
+                            <input type="text" name="price" id="" class="col price-field">
+
+                        </div>
+
+
+                        <div class="row">
+                            <label for="large" class="price">Large price</label>
+
+                            <div class="col" style="display: flex;align-items: center;">
+                                <input type="text" name="price" id="" class="col price-field">
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <label for="sizes" class="label-filed">Quantity</label>
+
+            <div class="col">
+
+                <div class="singleSizeList">
+                    <input type="number" name="quantity" id="singleQuantity" required>
+                </div>
+                <div class="multiSizeList">
+                    <div class="quantityList">
+                        <div class="row">
+                            <label for="small" class="quantity">Small Products Quantity</label>
+                            <input type="number" name="quantity" id=""
+                                class="col quantity-field" min="0">
+
+                        </div>
+
+                        <div class="row">
+                            <label for="medium" class="quantity">Medium Products
+                                Quantity</label>
+                            <input type="number" name="quantity" id=""
+                                class="col quantity-field" min="0">
+
+                        </div>
+
+
+                        <div class="row">
+                            <label for="large" class="quantity">Large Products Quantity</label>
+
+                            <div class="col" style="display: flex;align-items: center;">
+                                <input type="number" name="quantity" id=""
+                                    class="col quantity-field" min="0">
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <label for="stock_type" class="label-filed">Stock Type</label>
+
+            <div class="col">
+                <input type="radio" name="stock_type" value="Single Stock" id="singleStock" required readonly >
+                <label for="singleStock">Single Stock</label>&nbsp;&nbsp;
+
+                <input type="radio" name="stock_type" value="Multi Stocks(related to size)" id="multiStock" required readonly>
+                <label for="multiStock">Multi Stocks(related to size)</label>&nbsp;&nbsp;
+            </div>
+        </div>
+
+        <div class="row">
+            <label for="stockUnits" class="label-filed">units In Stock</label>
+            <input  class="col" type="number" name="units_in_stock" value="0" id="tockUnits" required>
+
+        </div>
+
+        <div class="row">
+            <label for="status" class="label-filed">Status</label>
+            <select class="col" name="status" id="" required>
+                <option value="active">Active</option>
+                <option value="inActive">inActive</option>
+            </select>
+
+        </div>
+    </section>
+
+    <section>
+        <div class="row">
+            <label for="offer" class="label-filed">Offer</label>
+
+            <div class="col">
+                <div id="offer_details">
+                    <div class="row">
+                        <label for="offer_name">Name</label>
+                        <input type="text" name="offer_name" id="offer_name" class="col offer">
+
+                    </div>
+
+                    <div class="row">
+                        <label for="offer_startDate">Start Date </label>
+                        <input type="date" name="offer_startDate" id="offer_startDate"
+                            class="col offer">
+
+                    </div>
+
+                    <div class="row">
+                        <label for="offer_endDate">End Date</label>
+                        <input type="date" name="offer_endDate" id="offer_endDate"
+                            class="col offer">
+
+                    </div>
+
+                    <div class="row">
+                        <label for="discount_rate">Discount Rate</label>
+                        <input type="text" name="discount_rate" id="discount_rate"
+                            class="col offer">
+
+                    </div>
+                    <div class="row" id="offerError"></div>
+                </div>
+                <button id="addOffer" type='button' class="check-btn user-btn"
+                    title="add Offer for the product">
+                    add Offer <i class="fa-solid fa-plus fa-shake"></i>
+                </button>
+
+                <button id="cancelOffer" type='button' class="check-btn user-btn"
+                    title="cancel the product offer">cancel
+                    <i class="fa-solid fa-xmark fa-shake"></i>
+                </button>
+
+                <i class="fa-solid fa-trash size-trash"></i>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="btns">
+        <button type="submit" class="btn btn-submit">submit</button>&nbsp;
+        <a href="/products" class="btn btn-cancel" id="tooltip">cancel</a>
+    </div>
+
+</form>

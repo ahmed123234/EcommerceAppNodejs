@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../../partials/admin/datatable-head')%>
+
+    <head>
+        <style>
+            .log {
+                display: inline-block;
+                background-color: rgb(101, 101, 248);
+                color: #fff;
+                padding: 4px 10px;
+                cursor: pointer;
+                /* transition: all .5s ease; */
+                margin: 1px;
+            }
+
+            .log:hover {
+                background-color: rgb(74, 74, 247);
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <%- include('../../partials/admin/datatable-body')%>
+            <script>
+                $(document).ready(() => {
+
+                    const coulmns = [
+
+                        {
+                            data: "stockDate",
+                            name: "stockDate",
+                            title: "Date"
+                        }, 
+                        {
+                            data: "stockType",
+                            name: "stockType",
+                            title: "Stock Type"
+                        },
+                        {
+                            data: "stockUnits",
+                            name: "stockUnits",
+                            title: "Stock Units"
+                        },
+                        {
+                            data: "remark",
+                            name: "remark",
+                            title: "Remark",
+                            // render: function(data) {
+                            //     if(data) {
+                            //         return  `
+                            //                     <div>
+                            //                         ${data}
+                            //                     </div>
+                            //                 `;
+                            //     }
+                            // } 
+                    
+                        }
+                        // {
+                        //     data: 'stockLogs',
+                        //     name: "stockLogs",
+                        //     title: "stock Date",
+                        //     render: function (data, type, row) {
+                        //         if (type === 'display') {
+                        //             // var priceBreaks = data[0].name;
+                        //             var output = [];
+
+                        //             // let length = data.length;
+                        //             data.forEach(function (item, index) {
+                        //                 console.log(item);
+                        //                 output.push(
+
+                        //                     `<span class="product-name">
+                        //                             ${item["stockDate"]}
+                        //                         </span>`
+                        //                 );
+                        //             });
+                        //             return output.join('<br>');
+                        //         }
+                        //         return data;
+                        //     }
+                        // },
+
+                        // {
+                        //     data: 'stockLogs',
+                        //     name: "stockLogs",
+                        //     title: "stock Type",
+                        //     render: function (data, type, row) {
+                        //         if (type === 'display') {
+                        //             // var priceBreaks = data[0].name;
+                        //             var output = [];
+
+                        //             // let length = data.length;
+                        //             data.forEach(function (item, index) {
+                        //                 console.log(item);
+                        //                 output.push(
+
+                        //                     `<span class="product-name">
+                        //                             ${item["stockType"]}
+                        //                         </span>`
+                        //                 );
+                        //             });
+                        //             return output.join('<br>');
+                        //         }
+                        //         return data;
+                        //     }
+                        // },
+
+                        // {
+                        //     data: 'stockLogs',
+                        //     name: "stockLogs",
+                        //     title: "stock Units",
+                        //     render: function (data, type, row) {
+                        //         if (type === 'display') {
+                        //             // var priceBreaks = data[0].name;
+                        //             var output = [];
+
+                        //             // let length = data.length;
+                        //             data.forEach(function (item, index) {
+                        //                 console.log(item);
+                        //                 output.push(
+
+                        //                     `<span class="product-name">
+                        //                             ${item["stockUnits"]}
+                        //                         </span>`
+                        //                 );
+                        //             });
+                        //             return output.join('<br>');
+                        //         }
+                        //         return data;
+                        //     }
+                        // },
+
+
+                        // {
+                        //     data: 'stockLogs',
+                        //     name: "stockLogs",
+                        //     title: "remak",
+                        //     render: function (data, type, row) {
+                        //         if (type === 'display') {
+                        //             // var priceBreaks = data[0].name;
+                        //             var output = [];
+
+                        //             // let length = data.length;
+                        //             data.forEach(function (item, index) {
+                        //                 console.log(item);
+                        //                 output.push(
+
+                        //                     `<span class="product-name">
+                        //                             ${item["remak"].substring(0, 10)}
+                        //                         </span>`
+                        //                 );
+                        //             });
+                        //             return output.join('<br>');
+                        //         }
+                        //         return data;
+                        //     }
+                        // },
+                    ];
+
+                    const requestDetails = {
+                        ajaxURL: `/products/product/${sessionStorage.getItem("productId")}?query_parameter=stockLogs`,
+                        mainURL: "/sellers/products",
+                        mainPage: "/sellers/products/stocks",
+                        updateURL: '',
+                        sessionProperty: 'sellerId'
+                    }
+
+                    initializeDoc(coulmns, requestDetails);
+                })
+            </script>
+    </body>
+
+</html>

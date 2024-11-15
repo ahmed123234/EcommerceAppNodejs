@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+    <%- include("../partials/admin/head") %>
+
+<body>
+    <div class="container">
+        <%- include('../partials/admin/header.ejs') %>
+        
+        <!-- Create the main part of the admin page -->
+
+        <div class="main-content">
+            
+            <%- include('../partials/admin/minu.ejs')%>
+            
+            <div class="displayedContent">
+
+                <!-- display the defualt content of this container -->
+                <div class="header">
+                    <span class="main">RED Store</span>
+                    <span class="sub">Ecommerce Control Panel</span>
+                </div>
+                
+                <div class="statistics">
+                    <div class="customers statistics-sub">
+                        <div class="mainInfo">
+                            <div class="row">
+                                <h1 class="count">1130</h1>
+                                <h4>Ecommerce Customers</h4>
+                            </div>
+                            
+    
+                            <i class="fa-solid fa-user background "></i>
+                        </div>
+                        
+                        <div class="moreInfo">
+                            <a href="" class="">More Info</a>
+                            <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="sellers statistics-sub">
+
+                        <div class="mainInfo">
+                            <div class="row">
+                                <h1 class="count">1130</h1>
+                                <h4>Ecommerce Sellers</h4>
+                            </div>
+                            
+                            <i class="fa-solid fa-bag-shopping background"></i>                           
+                        </div>
+                        
+                        <div class="moreInfo">
+                            <a href="" class="">More Info</a>
+                            <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                        </div>
+
+                    </div>
+                
+                    
+                    <div class="sales statistics-sub">
+
+                        <div class="mainInfo">
+                            <div class="row">
+                                <h1 class="count">1130</h1>
+                                <h4>Ecommerce Sales</h4>
+                            </div>
+                            
+    
+                            <i class="fa fa-shopping-cart background" aria-hidden="true"></i>
+                           
+                        </div>
+                        
+                        <div class="moreInfo">
+                            <a href="" class="">More Info</a>
+                            <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                        </div>
+
+                    </div>
+
+                    <div class="delivaries statistics-sub">
+
+                        <div class="mainInfo">
+                            <div class="row">
+                                <h1 class="count">1130</h1>
+                                <h4>Ecommerce Delivaries</h4>
+                            </div>
+                            
+    
+                            <i class="fa-solid fa-truck background"></i>
+                        </div>
+                        
+                        <div class="moreInfo">
+                            <a href="" class="">More Info</a>
+                            <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div> 
+        </div>
+    </div>
+
+    <!-- <script src="/scripts/adminScripts/admin-common.js"></script> -->
+    <script src="/scripts/adminScripts/dashboard.js"></script>
+    <!-- <script src="../../static/scripts/adminScripts/customers.js"></script> -->
+
+
+
+</body>
+
+</html>

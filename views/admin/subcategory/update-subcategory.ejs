@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EBuy | Ecommerce Website Design</title>
+    <link rel="stylesheet" href="/styles/admin.css">
+    <link rel="stylesheet" href="/styles/newcategory.css">
+    <link href="https://fonts.googleapis.com/css2?
+    family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a88d896878.js" crossorigin="anonymous"></script>
+</head> -->
+<%- include('../../partials/admin/head.ejs')%>
+
+<body>
+    <div class="container">
+
+        <%- include('../../partials/admin/header.ejs')%>
+
+            <!-- Create the main part of the admin page -->
+            <div class="main-content">
+                <%- include('../../partials/admin/minu.ejs')%>
+
+                <%- include('./main')%>
+                
+            </div>
+    </div>
+
+    <script src="/scripts/adminScripts/category-functions.js"></script>
+
+    <script src="/scripts/adminScripts//subcategories/subcategories.js"> </script>
+
+    <script>
+
+        // $(document).ready(function () {
+        // const form = document.querySelector('form');
+
+
+
+        let name = form.name.value;
+        let description = form.description.value;
+        let currentImage = document.querySelector('#img');
+        let favoriteStatus = form.favorite_status.value;
+        let status = form.status.value;
+        let category = form.category.value;
+
+        console.log(currentImage.src);
+
+        console.log(sessionStorage.getItem('subCategoryId'));
+        document.body.onload = async () => {
+            const res = await fetch(`/sub-categories/${sessionStorage.getItem('subCategoryId')}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            });
+
+            const subCategory = await res.json();
+
+            console.log((subCategory));
+
+            name = subCategory.name;
+
+            status = subCategory.status;
+            category = subCategory.category;
+
+
+            console.log(category);
+
+            let src = "/images/" + subCategory.image;
+            description = subCategory.description;
+            favoriteStatus = subCategory.favoriteStatus;
+
+
+            // console.log(name, nameMalayma, dailyProduct, description, image, status, favoriteStatus);
+
+            form.name.value = name;
+            form.description.value = description;
+            currentImage.src = src;
+            form.favorite_status.value = favoriteStatus ? 'Yes' : 'No';
+            form.status.value = status ? 'active' : 'inActive';
+            form.category.value = category;
+            console.log("image is: ", currentImage.src);
+        }
+
+        form.addEventListener('submit', async (e) => {
+
+            e.preventDefault();
+
+            name = form.name.value;
+            description = form.description.value;
+            category = form.category.value;
+            let absImage = form.image.value.split('\\');
+
+            const image = absImage[2];
+            favoriteStatus = form.favorite_status.value;
+            status = form.status.value;
+
+
+            console.log(name, category, description, image, status, favoriteStatus);
+
+            const res = await fetch(`/sub-categories/${sessionStorage.getItem('subCategoryId')}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ name, category, description, image, status, favoriteStatus })
+            });
+
+            const data = await res.json();
+
+            console.log(data);
+
+            if (data) {
+                location.assign('/sub-categories');
+            }
+        })
+        // });
+    </script>
+
+</body>
+
+</html>
+
+
+
+<!-- <div class="displayedContent">
+
+    <div class="header">
+        <h1>Ecom.Categories</h1>
+
+        <div>
+            <i class="fa fa-tachometer icon-1" aria-hidden="true"></i>&nbsp;
+            <a href="/">Home</a>&nbsp;
+            <i class="fa-solid fa-angle-right"></i>&nbsp;
+            <a href="/sub-categories">Ecom.Sub-Categories</a>&nbsp;
+            <i class="fa-solid fa-angle-right"></i>&nbsp;
+            <a href="/sub-categories/update-subcategory">Update Sub-Category</a>&nbsp;
+        </div>
+
+    </div>
+
+
+    <h2>Update Sub-Category</h2>
+
+    <form class="form">
+        <section>
+
+            <div class="row">
+                <label for="name">Name</label>
+                <input class="col" type="text" placeholder="Name" id="name" name="name" required>
+            </div>
+
+
+            <div class="row">
+                <label for="description">Description</label>
+                <textarea class="col" placeholder="Description" id="description" name="description"
+                    required></textarea>
+            </div>
+
+
+            <div class="row">
+                <label for="upload-button">Category Image</label>
+                <div class="col image-container">
+
+                    <div class="image-display">
+                        <img id="img" src="" alt="">
+                    </div>
+                    <input id="upload-button" type="file" name="image" required multiple
+                        accept="image/*">
+                    <input type="radio" name="dailyProd" value="No" id="no">
+                    <label class="uploadButton" for="upload-button">
+                        <i class="fa-solid fa-upload"></i>&nbsp;
+                        Choose or Drop Photos
+                    </label>
+                    <div id="hint">image type .png, .jpeg. Size 100 x 100</div>
+                    <div class="upload-error"></div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <label for="status">Category</label>
+
+                <select class="col" name="category" id="category" required>
+                    will be filled by Api
+                </select>
+
+            </div>
+
+
+
+            <div class="row">
+                <label for="Favorite status">Favorite Status</label>
+                <div class="col">
+                    <input type="radio" name="favorite_status" value="Yes" id="yes1" required>
+                    <label for="yes1">Yes</label>&nbsp;&nbsp;
+
+                    <input type="radio" name="favorite_status" value="No" id="no1" required>
+                    <label for="no1">No</label>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <label for="status">Status</label>
+
+
+                <select class="col" name="status" id="" required>
+                    <option value="active">Active</option>
+                    <option value="inActive">inActive</option>
+                </select>
+
+            </div>
+
+
+
+            <div class="btns">
+                <button type="submit" class="btn btn-submit">Submit</button>&nbsp;
+                <a href="/sub-categories" class="btn btn-cancel">Cancel</a>
+            </div>
+        </section>
+
+    </form>
+
+</div> -->

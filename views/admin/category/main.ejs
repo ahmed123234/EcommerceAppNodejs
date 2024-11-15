@@ -1,0 +1,110 @@
+<div class="displayedContent">
+
+    <div class="header">
+        <h1>Ecom.Categories</h1>
+
+        <div>
+            <i class="fa fa-tachometer icon-1" aria-hidden="true"></i>&nbsp;
+            <a href="/">Home</a>&nbsp;
+            <i class="fa-solid fa-angle-right"></i>&nbsp;
+            <a href="/categories">Ecom.Categories</a>&nbsp;
+            <i class="fa-solid fa-angle-right"></i>&nbsp;
+            <a href="/categories/<%= action %>"><%= type %> Category</a>&nbsp;
+        </div>
+
+    </div>
+
+
+    <h2><%= type %>  Category</h2>
+
+    <form class="form">
+
+        <section>
+            <div class="row">
+                <label for="name">Name</label>
+                <input class="col" type="text" placeholder="Name" id="name" name="name" required>
+            </div>
+
+            <div class="row">
+                <label for="nameMalayma">Name in Malayama</label>
+                <input class="col" type="text" placeholder="Name" id="nameMalayma"
+                    name="name_malayma" required>
+            </div>
+
+            <div class="row">
+                <label for="description">Description</label>
+                <textarea class="col" placeholder="Description" id="description" name="description"
+                    required></textarea>
+            </div>
+
+            <div class="row">
+                <label for="dailyProd">Daily Prodduct</label>
+                <div class="col">
+                    <input type="radio" name="daily_product" value="Yes" id="yes" required>
+                    <label for="yes">Yes</label>&nbsp;&nbsp;
+
+                    <input type="radio" name="daily_product" value="No" id="no" required>
+                    <label for="no">No</label>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <label for="upload-button">Category Image</label>
+                <div class="col image-container">
+                    <div class="image-display">
+                        <img id="img" src=".../../static/images/defaultimage.png" alt="">
+                    </div>
+                    <input id="upload-button" type="file" name="image"
+                    
+                        <% if(required === true) { %>
+                            required
+                        <% } %> 
+                        multiple
+                        accept="image/*">
+                    <!-- <input type="radio" name="dailyProd" value="No" id="no"> -->
+                    <label class="uploadButton" for="upload-button">
+                        <i class="fa-solid fa-upload"></i>&nbsp;
+                        Choose or Drop Photos
+                    </label>
+                    <div id="hint">image type .png, .jpeg. Size 100 x 100</div>
+                    <div class="upload-error"></div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <label for="Favorite status">Favorite Status</label>
+                <div class="col">
+                    <input type="radio" name="favorite_status" value="Yes" id="yes1" required>
+                    <label for="yes1">Yes</label>&nbsp;&nbsp;
+
+                    <input type="radio" name="favorite_status" value="No" id="no1" required>
+                    <label for="no1">No</label>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <label for="status">Status</label>
+
+
+                <select class="col" name="status" id="" required>
+                    <option value="active">Active</option>
+                    <option value="inActive">inActive</option>
+                </select>
+
+            </div>
+
+            <div class="btns">
+                <button type="submit" class="btn btn-submit">Submit</button>&nbsp;
+                <a href="/categories" class="btn btn-cancel">Cancel</a>
+            </div>
+
+        </section>
+
+    </form>
+
+</div>

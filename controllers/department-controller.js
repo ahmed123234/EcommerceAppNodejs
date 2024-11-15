@@ -1,6 +1,6 @@
 const departmentModel = require('../models/department-model');
 
-const addDepartment = async (req, res) => {
+addDepartment = async (req, res) => {
     const department = req.body;
     const department_ = new departmentModel(department);
 
@@ -10,7 +10,7 @@ const addDepartment = async (req, res) => {
 }
 
 
-const addMultipleDepartments = async (req, res) => {
+addMultipleDepartments = async (req, res) => {
     const departments = req.body;
     const countries_ = [];
 
@@ -31,7 +31,7 @@ const addMultipleDepartments = async (req, res) => {
    res.status(201).json({message: "departments are created successfully"});
 }
 
-const getDepartmentById = (req, res) => {
+getDepartmentById = (req, res) => {
     const departmentId = req.params.departmentId;
 
     departmentModel.findById(departmentId).then((result) => {
@@ -42,7 +42,7 @@ const getDepartmentById = (req, res) => {
     })
 }
 
-const deleteDepartment = (req, res) => {
+deleteDepartment = (req, res) => {
     const departmentId = req.params.departmentId;
 
     departmentModel.findByIdAndDelete(departmentId).then((result) => {
@@ -52,7 +52,7 @@ const deleteDepartment = (req, res) => {
     })
 }
 
-const updateDepartment = (req, res) => {
+updateDepartment = (req, res) => {
     const departmentId = req.query.departmentId;
     const contactInfo = req.query.contactInfo;
 
@@ -67,7 +67,7 @@ const updateDepartment = (req, res) => {
 }
 
 
-const getAllDepartments = async (req, res) => {
+getAllDepartments = async (req, res) => {
    
    res.send(await departmentModel.find());
 }

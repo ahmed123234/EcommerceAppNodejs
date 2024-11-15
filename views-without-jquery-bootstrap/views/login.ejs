@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Products - EBuy</title>
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/account.css">
+    <!-- <script src="../static/scripts/script.js"></script> -->
+    <link href="https://fonts.googleapis.com/css2?
+    family=Poppins:wght@100;200;300;400;500;600;700&display=swap" 
+    rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a88d896878.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+        <div class="container">
+
+            <div class="navbar">
+                <div class="logo">
+                    <img src="/images/logo.png" alt="" width="125px">
+                </div>
+                <nav>
+                    <ul id="MenuItems">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/products.html">Products</a></li>
+                        <li><a href="">About</a></li>
+                        <li><a href="">Contact</a></li>
+                        <li><a href="/account.html">Account</a></li>
+                    </ul>
+                </nav>
+
+                <a href="/cart"><img src="/images/cart.png" alt="" width="30px" height="30px"></a>
+                <a href="/index"><img src="/images/menu.png" class="menu-icon" alt="" onclick="menuToggle()"></a>
+            
+            </div>
+
+
+        </div>
+
+
+    <!-- Acoount page container -->
+
+
+    <div class="account-page">
+        <div class="conatiner">
+            <div class="row">
+                <div class="col-2">
+                    <img src="/images/image1.png" alt="">
+                </div>
+
+                <div class="col-2">
+                    <div class="form-container" id="rigisterForm">
+
+                        <div class="form-btn">
+                            <span onclick="loginuser()">Login</span>
+                            <span onclick="moreInfo()">OR By</span>
+                            <hr id="indicator">
+                        </div>
+
+                        <form class="sub-form" id="firstView">
+                            <div>
+                                <label for="username">Username</label>
+                                <input type="text" placeholder="Username" name="username" class="credintilas" id="username" required>
+                            </div>
+                            
+                            <div class="error username"></div>
+
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" placeholder="Password" class="credintilas" required>
+                            <div class="error password"></div>
+
+                            <button class="btn">Login</button>
+                            
+                            <p>Don't have any account? <a href="signup">Signup</a></p>
+                        </form>
+
+
+                        
+                        
+
+
+                        <form class="sub-form" id="moreInfo">
+                            
+                            <button type="submit" class="btn" onsubmit="">Login By Google</button>
+                            <button type="submit" class="btn">Login By LinkedIn</button>
+                            <button type="submit" class="btn">Login By Facebook</button>
+                        </form>
+
+                    </div>
+                </div>
+                    
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ------------- footer ------------ -->
+    <%- include('./partials/footer.ejs')%>
+
+
+    <script>
+        let MenuItems = document.getElementById("MenuItems");
+        MenuItems.style.maxHeight = "0px";
+
+        function menuToggle(){
+            if (MenuItems.style.maxHeight == "0px")
+                MenuItems.style.maxHeight = "200px"
+            else
+                MenuItems.style.maxHeight = "0px"
+        }
+    </script>
+
+
+<script>
+    const firstView = document.getElementById("firstView");
+    const moreInfos = document.getElementById("moreInfo");
+    const indicator = document.getElementById('indicator');
+
+    const registerForm = document.querySelector('#moreInfo');
+    
+
+    const moreInfo = () => {
+        moreInfos.style.transform = "translateX(-300px)";
+        firstView.style.transform = "translateX(-300px)";
+        indicator.style.transform = "translateX(100px)";
+ 
+    } 
+
+    const loginuser = () => {
+      
+        moreInfos.style.transform = "translateX(0px)";
+        firstView.style.transform = "translateX(0px)";
+        indicator.style.transform = "translateX(0px)";
+    }
+
+    // firstView.addEventListener ('submit' ,(e) => {e.preventDefault(), moreInfo()});
+    
+    firstView.addEventListener('submit', async (e) => {
+
+        e.preventDefault();
+
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+    
+        console.log(username, password)
+
+        const res = await fetch('http://localhost:9090/account/login', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+        });
+
+
+        const data = await res.json();
+
+        console.log(data);
+
+        // if(data.error) {
+
+        // }
+
+        if(data.user) {
+            location.assign('/');
+        }
+    });
+
+
+    function check() { 
+        const credintilas = document.getElementsByClassName('credintilas');
+    
+        let i = 0;
+        // const emailError = document.querySelector('.error.email');
+        // const usernameError = document.querySelector('.error.username');
+        // const passwordError = document.querySelector('.error.password');
+
+        // const email = document.querySelector('.credintilas.email');
+        // const username = document.querySelector('.credintilas.username');
+        // const password = document.querySelector('.credintilas.password');
+
+        
+        let error = false;
+       
+        // const errorType = { 0: 'username is required\n', 1: 'password is required\n', 2: 'email is required\n' };
+        while(i < 3) {
+            if (credintilas.item(i).value === "") {
+                error = true;
+                break;
+            }
+            i++;
+        }
+
+        // if (!username) { usernameError.innerHTML = errorType[0]; error = true };
+        // if (!email) { emailError.innerHTML = errorType[2]; error = true };
+        // if (!password) { passwordError.innerHTML = errorType[1]; error = true };
+
+
+        if (!error)
+            moreInfo(); 
+        
+    }
+    
+</script>
+<!-- <script src="/scripts/adminScripts/admin-common.js"></script> -->
+</body>
+</html>

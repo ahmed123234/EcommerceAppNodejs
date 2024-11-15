@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./head')%>
+<body>
+    <%- include('./index')%>
+    
+    <script>
+        const addCustomSlot = (id) => {
+
+            $(".cover").toggle();
+            $('#userInputCont').slideToggle(500);
+            //    const cont =  $(`#${id}`);
+
+        }
+    </script>
+    <script>
+        // const form = document.querySelector('form');
+
+        $(document).ready(async () => {
+
+            console.log("seller Id", sessionStorage.getItem('sellerId'));
+            const resonse = await fetch(`/sellers/new-requests/${sessionStorage.getItem('sellerId')}`, {
+                method: "GET",
+            });
+            const seller = await resonse.json();
+
+            console.log("seller information", seller.response);
+
+            const { user, store, requestDate, requsetStatus } = seller.response;
+
+            console.log("request status", requsetStatus)
+            // fecth user information
+            console.log("user id is", user);
+            const userInfo = await $.ajax({
+                url: `/account/${user}`,
+                method: 'GET',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            });
+
+            form.username.value = userInfo.username || "";
+            form.email.value = userInfo.email || "";
+            form.mobile.value = userInfo.mobile || "";
+
+            console.log("user info", userInfo);
+            /*----------------------------------------------------*/
+
+            // fetch store information:
+
+            const {
+                storeName,
+                storeLicenseNumber,
+                category,
+                storeAddress,
+                logo,
+                workingHoures,
+                deliverySlots,
+                packingCharge,
+                preparationTime,
+                spotDeliverySlots,
+                storeStatus,
+
+            } = store;
+            form.store_name.value = storeName || "";
+            form.store_license_number.value = storeLicenseNumber || "";
+            form.category.value = category || "";
+            form.status.value = (storeStatus ? "active" : "inActive") || "";
+            form.spotDeliverySlots.value = spotDeliverySlots || "";
+            form.deliverySlots.value = deliverySlots || "",
+            form.preparationTime.value = preparationTime || "";
+            form.packingCharge.value = packingCharge || "";
+
+            $("#img").attr("src", `/images/${logo}`)
+
+            console.log("store logo", logo);
+            console.log("category", form.category.value);
+
+           
+
+
+            // fetch working hours onformation
+
+            const { openedAt, closedAt, activeDays } = workingHoures;
+            const { from, to } = activeDays;
+
+            console.log(openedAt, closedAt);
+
+            const openHour = new Date(openedAt).toLocaleTimeString('it-IT');
+
+            const closeHour = new Date(closedAt).toLocaleTimeString('it-IT');
+            console.log("open ", openHour, "close ", closeHour);
+            form.opened_at.value = openedAt;
+            form.closed_at.value = closedAt;
+            form.from.value = from;
+            form.to.value = to;
+
+
+            console.log("storeAddress", storeAddress);
+            // fetch store address information
+            const {
+                addressLine1,
+                addressLine2,
+                city,
+                state,
+                pincode,
+                postOffice,
+                latitude,
+                longitude,
+                district,
+                serviceArea
+
+            } = storeAddress;
+
+            form.latitude.value = latitude || "";
+            form.longitude.value = longitude || "";
+            form.pincode.value = pincode || "";
+            form.addressLine1.value = addressLine1 || "";
+            form.addressLine2.value = addressLine2 || "";
+            form.serviceArea.value = serviceArea || "";
+            form.district.value = district || "";
+            form.city.value = city || "";
+            form.state.value = state || "";
+            form.postOffice.value = postOffice || "";
+
+
+            form.addEventListener('submit', async (e) => {
+
+                e.preventDefault();
+
+                console.log("open",form.opened_at.value);
+                console.log("close",form.closed_at.value);
+
+                const requestBody = {
+                    user: {
+                        _id: user,
+                        username: form.username.value,
+                        mobile: form.mobile.value,
+                        email: form.email.value,
+                    },
+
+                    store: {
+                        storeAddress: {
+                            _id: storeAddress._id,
+                            latitude: form.latitude.value,
+                            longitude: form.longitude.value,
+                            pincode: form.pincode.value,
+                            addressLine1: form.addressLine1.value,
+                            addressLine2: form.addressLine2.value,
+                            serviceArea: form.serviceArea.value,
+                            district: form.district.value,
+                            city: form.city.value,
+                            state: form.state.value,
+                            postOffice: form.postOffice.value,
+                        },
+                        workingHoures: {
+                            openedAt: form.opened_at.value,
+                            closedAt: form.closed_at.value,
+                            activeDays: {
+                                from: form.from.value,
+                                to: form.to.value
+                            }
+                        },
+                        storeStatus: form.status.value === "inActive"? false : true,
+                        deliverySlots: form.deliverySlots.value,
+                        packingCharge: form.packingCharge.value,
+                        preparationTime: form.preparationTime.value,
+                        spotDeliverySlots: form.spotDeliverySlots.value,
+                        storeName: form.store_name.value,
+                        storeLicenseNumber: form.store_license_number.value,
+                        logo: $("#img").attr("src"),
+                        category: form.category.value,
+                        _id: store._id
+                    },
+                    requestDate,
+                    requsetStatus,
+                }
+                // const a = []
+                // a.reduce(value, res) {
+                //     res+=value
+                // }
+                // console.log(new Date(form.opened_at.value));
+
+                console.log("request body:", requestBody);
+
+
+                const res = await fetch(`/sellers/new-requests/${sessionStorage.getItem('sellerId')}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                const data = await res.json();
+
+                console.log(data);
+
+                if (data) {
+                    location.assign('/sellers/seller-requests');
+                }
+            })
+        })
+    </script>
+
+</body>
+
+</html>

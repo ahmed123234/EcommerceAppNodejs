@@ -8,7 +8,7 @@ const categorySchema = new Schema ({
     description: {
         type : Schema.Types.String,
     },
-    dailyProducts: {
+    dailyProduct: {
         type : Schema.Types.Boolean
     }, 
     status: {
@@ -16,7 +16,9 @@ const categorySchema = new Schema ({
     }, 
     image: {
         type : Schema.Types.String
-    }
+    },
+    nameMalayma : String,
+    favoriteStatus: Boolean
 });
 
 const categoryModel = mongoose.model('Category', categorySchema);

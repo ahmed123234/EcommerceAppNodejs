@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EBuy | Ecommerce Website Design</title>
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css">
+
+
+  <link rel="stylesheet" href="/styles/admin.css">
+
+  <link href="https://fonts.googleapis.com/css2?
+    family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://kit.fontawesome.com/a88d896878.js" crossorigin="anonymous"></script>
+</head> -->
+
+<%- include('../../partials/admin/datatable-head')%>
+
+<body>
+  
+  <%- include('../../partials/admin/datatable-body')%>
+
+  <script>
+    $(document).ready(() => {
+
+      const coulmns = [
+        {
+          "data": "_id",
+          "name": "_id",
+          "title": "user_ID",
+          orderable: true
+        },
+        {
+          "data": "username",
+          "name": "username",
+          "title": "Username",
+          orderable: true
+        },
+        {
+          "data": "enabled",
+          "name": "enabled",
+          "title": "Status",
+          orderable: true,
+          render: function (data, type) {
+            if (data == true) {
+              return '<span class="badge badge-success">Active</span>'
+            }
+            if (!data) {
+              return '<span class="badge badge-dark">Deactive</span>'
+            }
+          }
+        },
+        {
+          "data": "email",
+          "name": "email",
+          "title": "Email",
+        },
+        {
+          data: null,
+          className: "dt-center editor-edit",
+          defaultContent: '<a class="view"><i class="fa fa-solid fa-eye"/></a>',
+          orderable: false
+        },
+      ];
+
+      console.log("initialize the document part 1");
+
+      const requestDetails = {
+        ajaxURL: '/users/getAll?type=CUSTOMER',
+        mainURL: "/users",
+        mainPage: "/users",
+        updateURL: '/users/update-user',
+        viewURL: '/users/profiles/getProfile',
+        sessionProperty: 'customerId'
+      }
+
+      initializeDoc(coulmns, requestDetails);
+    })
+  </script>
+
+
+
+  <!-- <script>
+    $(document).ready(function () {
+      let dt = $('#example').DataTable({
+        responsive: {
+          details: {
+            display: $.fn.dataTable.Responsive.display.modal({
+              header: function (row) {
+                var data = row.data();
+                console.log(data);
+                return 'Details for ' + data.email;
+              }
+            }),
+            renderer: $.fn.dataTable.Responsive.renderer.tableAll()
+          }
+        },
+        order: [
+          [1, 'desc'],
+          [0, 'asc']
+        ],
+        selectable: true,
+        "loading": true,
+        "processing": true,
+        // "serverSide": true,
+        "initComplete": function (settings, json) {
+          $('#example').show();
+        },
+        "select": true,
+        "bFilter": true,
+        "bInfo": false,
+        "bPaginate": true,
+        "columns": [
+          {
+            "data": "_id",
+            "name": "_id",
+            "title": "user_ID",
+            orderable: true
+          },
+          {
+            "data": "username",
+            "name": "username",
+            "title": "Username",
+            orderable: true
+          },
+          {
+            "data": "enabled",
+            "name": "enabled",
+            "title": "Status",
+            orderable: true,
+            render: function (data, type) {
+              if (data == true) {
+                return '<span class="badge badge-success">Active</span>'
+              }
+              if (!data) {
+                return '<span class="badge badge-dark">Deactive</span>'
+              }
+            }
+          },
+          {
+            "data": "email",
+            "name": "email",
+            "title": "Email",
+          },
+          {
+            data: null,
+            className: "dt-center editor-edit",
+            defaultContent: '<a class="view" ><i class="fa fa-solid fa-eye"/></a>',
+            orderable: false
+          },
+          {
+            data: null,
+            className: "dt-center editor-edit",
+            defaultContent: '<i class="fa fa-pencil"/>',
+            orderable: false
+          },
+          {
+            data: null,
+            className: "dt-center editor-delete",
+            defaultContent: '<a class="delete"><i class="fa fa-trash"/></a>',
+            orderable: false
+          }
+        ],
+        "language": {
+          "emptyTable": "No data to show!"
+        },
+
+        "ajax": {
+          "type": "get",
+          "url": "/users/getAll?type=CUSTOMER",
+          "content-type": "application/json, utf-8",
+          "dataType": "json",
+          "dataSrc": ""
+        },
+        // searching: true,
+        // ordering: true
+      });
+
+      $('#example').on('click', 'a.view', function () {
+        // alert("activityTable");
+        var data = dt.row($(this).parents('tr')).data();
+        // alert("here");
+        sessionStorage.setItem('customerId', data._id)
+        // alert("The ID is: " + sessionStorage.getItem('categoryId'));
+
+        location.assign('/users/profiles/getProfile');
+      });
+
+      const cover = $(".cover");
+
+      $('#example').on('click', 'a.delete', function () {
+
+        var data = dt.row($(this).parents('tr')).data();
+        sessionStorage.setItem('customerId', data._id)
+
+        cover.css('display', 'block');
+        const yes = $('.yes');
+        const no = $('.no');
+
+
+
+        yes.on('click', async () => {
+          console.log(sessionStorage.getItem('customerId'));
+          const res = await fetch(`/users/${sessionStorage.getItem('customerId')}`, {
+            method: "DELETE",
+
+            headers: {
+              'Content-Type': 'application/json'
+            }
+
+          });
+
+          const jsonData = await res.json();
+
+          console.log(jsonData);
+          location.assign('/users');
+        });
+
+        no.on('click', () => {
+          cover.css('display', 'none');
+        });
+      });
+
+    });
+
+    $.fn.dataTable.ext.errMode = 'alert';
+  </script> -->
+</body>
+
+</html>

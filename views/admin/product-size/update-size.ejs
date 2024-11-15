@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EBuy | Ecommerce Website Design</title>
+    <link rel="stylesheet" href="/styles/admin.css">
+    <link rel="stylesheet" href="/styles/newcategory.css">
+    <link href="https://fonts.googleapis.com/css2?
+    family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a88d896878.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container">
+
+        <%- include('../../partials/admin/header.ejs')%>
+
+
+            <!-- Create the main part of the admin page -->
+            <div class="main-content">
+
+                <%- include('../../partials/admin/minu.ejs')%>
+
+                    <div class="displayedContent">
+
+                        <div class="header">
+                            <h1>Ecom.Sizes</h1>
+
+                            <div>
+                                <i class="fa fa-tachometer icon-1" aria-hidden="true"></i>&nbsp;
+                                <a href="/dashboard">Home</a>&nbsp;
+                                <i class="fa-solid fa-angle-right"></i>&nbsp;
+                                <a href="/sizes">Ecom.Sizes</a>&nbsp;
+                                <i class="fa-solid fa-angle-right"></i>&nbsp;
+                                <a href="/sizes/new-size">New Size</a>&nbsp;
+                            </div>
+
+                        </div>
+
+
+                        <h2>New Product Size</h2>
+
+                        <form class="form">
+
+                            <div class="row">
+                                <label for="size">Size</label>
+                                <input class="col" type="number" placeholder="Size" id="size" name="size" required>
+                            </div>
+
+                            <div class="row">
+                                <label for="unit">Size Unit</label>
+                                <select class="col" placeholder="select size unit " id="unit" name="unit" required>
+                                    <!-- filled by jquery -->
+                                </select>
+
+                            </div>
+
+
+                            <div class="row">
+                                <label for="name">Name</label>
+                                <div class="col">
+                                    <input class="" style="display: block; width: 100%;" type="text"
+                                        placeholder="select size unit " id="name" name="name" readonly required>
+                                    <div id="error"></div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <label for="stockValue">Stock Value</label>
+                                <input class="col" type="number" placeholder="Stock Value" id="stockValue"
+                                    name="stock_value" required min="1.0" max="1000.0"></input>
+                            </div>
+
+
+                            <div class="btns">
+                                <button type="submit" class="btn btn-submit">Submit</button>&nbsp;
+                                <a href="/sizes" class="btn btn-cancel">Cancel</a>
+                            </div>
+
+                        </form>
+
+                    </div>
+            </div>
+    </div>
+
+
+    <script src="/scripts/adminScripts/product-size/product-size.js"></script>
+    
+    <script>
+        const form = document.querySelector('form');
+
+        // let name = form.name.value;
+        // let stockValue = form.stock_value.value;
+        // let unit = form.unit.value;
+        // let size = form.size.value;
+
+        let updatedSize = {name: '', stockValue: '', unit: '', size: ''};
+               
+        console.log(sessionStorage.getItem('sizeId'));
+
+        document.body.onload = async () => {
+            const res = await fetch(`/sizes/${sessionStorage.getItem('sizeId')}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            });
+
+            const productSize = await res.json();
+
+            console.log((productSize));
+
+            updatedSize.name = productSize.name;
+            updatedSize.stockValue = productSize.stockValue;
+            updatedSize.unit = productSize.unit;
+            updatedSize.size = productSize.size;
+
+
+            // console.log(name, nameMalayma, dailyProduct, description, image, status, favoriteStatus);
+
+            form.name.value = updatedSize.name;
+            form.stock_value.value = updatedSize.stockValue;
+            form.size.value = updatedSize.size;
+            form.unit.value = updatedSize.unit;
+           
+        }
+
+
+        form.addEventListener('submit', async (e) => {
+
+            e.preventDefault();
+
+            updatedSize.name = form.name.value;
+            updatedSize.stockValue = form.stock_value.value;
+            updatedSize.size = form.size.value;
+            updatedSize.unit = form.unit.value;
+
+
+            console.log(updatedSize);
+
+            const res = await fetch(`/sizes/${sessionStorage.getItem('sizeId')}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(updatedSize)
+            });
+
+            const data = await res.json();
+
+            console.log(data);
+
+            if (data) {
+                // location.assign('/sizes');
+            }
+        })
+        // });
+    </script>
+
+</body>
+
+</html>

@@ -5,11 +5,24 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "author": "Eng.Ahmed Ghannam",
   "license": "ISC",
   "dependencies": {
-    "mongoose": "^7.0.3"
+    "express": "^4.18.2",
+    "apicache": "^1.6.3",
+    "bcrypt": "^5.1.0",
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.9",
+    "jsonwebtoken": "^9.0.0",
+    "mdb-reader": "^2.2.5",
+    "mdb-ui-kit": "^6.2.0",
+    "mongoose": "^7.0.3",
+    "mongoose-paginate": "^5.0.3",
+    "mongoose-paginate-v2": "^1.7.1",
+    "morgan": "^1.10.0",
+    "validator": "13.9.0"
   }
 }

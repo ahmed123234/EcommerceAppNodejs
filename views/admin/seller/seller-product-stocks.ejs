@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../../partials/admin/datatable-head')%>
+
+    <head>
+        <style>
+            .log {
+                display: inline-block;
+                background-color: rgb(101, 101, 248);
+                color: #fff;
+                padding: 4px 10px;
+                cursor: pointer;
+                /* transition: all .5s ease; */
+                margin: 1px;
+            }
+
+            .log:hover {
+                background-color: rgb(74, 74, 247);
+            }
+        </style>
+    </head>
+
+    <body>
+
+       
+        <%- include('../../partials/admin/datatable-body-extend')%>
+
+            <script>
+                $(document).ready(() => {
+
+                    $.get('/sellers/requests?request_status=Accepted', (data) => {
+                    console.log(data);
+                    })
+
+                    const coulmns = [
+                        {
+                            "data": "product._id",
+                            "name": "product._id",
+                            "title": "Record _id",
+                            visible: false
+                        },
+                        {
+                            data: "product.name",
+                            name: "product.name",
+                            title: "Product"
+                        },
+                        {
+                            "data": "seller",
+                            "name": "seller",
+                            "title": "Seller",
+                        },
+                        {
+                            "data": "product.stockType",
+                            "name": "product.stockType",
+                            "title": "Stock Type",
+                        },
+
+                        {
+                            data: 'product.unitsInStock',
+                            name: 'product.unitsInStock',
+                            title: 'Current Stock'
+                        },
+                        {
+                            data: null,
+                            name: null,
+                            title: 'Options',
+                            defaultContent: `<span class="log"> Stcok Log</span>`
+
+                        },
+
+                    ];
+
+                    const requestDetails = {
+                        ajaxURL: '/sellers/products',
+                        mainURL: "/sellers/products",
+                        mainPage: "/sellers/products/stocks",
+                        updateURL: '',
+                        sessionProperty: 'sellerId'
+                    }
+
+                    initializeDoc(coulmns, requestDetails);
+
+                    $('#example').on('click', 'span.log', function () {
+
+                        showDetails($(this));
+
+                        prdouct_cover_cont.toggle(0, () => {
+
+                        });
+
+                        product_cont.slideToggle(500);
+                    });
+
+                    function showDetails($this) {
+
+                        const data = dt.row($this.parents('tr')).data();
+
+                        console.log(data.product._id);
+                        sessionStorage.setItem("productId", data.product._id);
+
+                        location.assign("/sellers/products/stocks/logs")
+
+                    }
+
+                    const sellers = $('.sellers');
+                    sellers.on("change", function () {
+                        console.log(this.value);
+                        requestDetails.ajaxURL =`/sellers/products/${this.value}`
+                        // $("example").remove();
+
+                        $(".table-cont").remove("#exmaple");
+                        $(".table-cont").append(`<table id="example" class="display nowrap" style="width: 100%;">
+
+</table>`)
+                        
+                        // initializeDoc(coulmns, requestDetails);
+
+                        $.get(`/sellers/products/${this.value}`, (data => {
+                            console.log(data);
+                        }))
+                    })
+
+                })
+            </script>
+    </body>
+
+</html>

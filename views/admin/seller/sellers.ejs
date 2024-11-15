@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../../partials/admin/datatable-head')%>
+
+    <%- include('./head')%>
+
+        <head>
+
+            <link rel="stylesheet" href="/styles/seller/seller.css">
+
+        </head>
+
+        <body>
+
+            <%- include('../../partials/admin/datatable-body')%>
+
+                <div class="cover-cont" id="cc0">
+                    <div id="WH-cont" class="alert-container">
+                        <i id="WH-close" class="fa fa-close"></i>
+
+                        <h2 class="mainTitle">working Hours</h2>
+
+                        <form class="form" style="width: 90%;" id="WH-form">
+                            <div class="row">
+                                <div class="td-row">
+                                    <label for="openTime" class="def">Open Time</label>
+                                    <input type="time" name="open_time" id="openTime" required step="1" class="input">
+                                </div>
+
+                                <div class="td-row">
+                                    <label for="closeTime" class="def">Close Time</label>
+                                    <input type="time" name="close_time" id="closeTime" required step="1" class="input">
+                                </div>
+
+                            </div>
+
+                            <div class="days">
+                                <div class="day">
+                                    <h3>Day</h3>
+
+                                    <label for="sun">Sunday</label>
+
+                                    <label for="mon">Monday</label>
+
+                                    <label for="tues">Tuesday</label>
+
+                                    <label for="wed">Wednsday</label>
+
+                                    <label for="thr">Thirsday</label>
+
+                                    <label for="fri">Friday</label>
+
+                                    <label for="sat">Satrday</label>
+
+                                </div>
+
+                                <div class="closed">
+                                    <h3>Closed</h3>
+
+                                    <input type="checkbox" class="input" name="sun" id="sun">
+
+                                    <input type="checkbox" class="input" name="mon" id="mon">
+
+                                    <input type="checkbox" class="input" name="tue" id="tues">
+
+                                    <input type="checkbox" class="input" name="wed" id="wed">
+
+                                    <input type="checkbox" class="input" name="thu" id="thr">
+
+                                    <input type="checkbox" class="input" name="fri" id="fri">
+
+                                    <input type="checkbox" class="input" name="sat" id="sat">
+
+
+                                </div>
+
+                            </div>
+                            <div class="btns center-btn">
+                                <button type="submit" class="btn btn-submit">Update</button>&nbsp;
+                                <a id="c0" class="btn btn-cancel">Cancel</a>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+
+                <div class="cover-cont" id="cc1">
+                    <div id="bank-cont" class="alert-container">
+                        <i id="bank-close" class="fa fa-close"></i>
+                        <h2 class="mainTitle">Bank Account</h2>
+
+                        <form class="form" style="width: 90%;" id="Bank-form">
+
+                            <div class="row">
+                                <label for="accountNumber" class="label-filed">Account Number</label>
+                                <input type="text" name="account_number" id="accountNumber" placeholder="Account Number"
+                                    class="col input" required>
+                            </div>
+
+                            <div class="row">
+                                <label for="bankName" class="label-filed">Bank Name</label>
+                                <input type="text" name="bank_name" id="bankName" placeholder="Bank Name"
+                                    class="col input" required>
+                            </div>
+
+
+                            <div class="row">
+                                <label for="IFSC" class="label_filed">IFSC</label>
+                                <input type="text" name="IFSC" id="IFSC" placeholder="IFSC" class="col input" required>
+                            </div>
+
+                            <div class="row">
+                                <label for="branchName" class="label-filed">Branch Name</label>
+                                <input type="text" name="branch_name" id="branchName" placeholder="Branch Name"
+                                    class="col input" required>
+                            </div>
+
+
+
+                            <div class="row">
+                                <label for="accountHolder" class="label-filed">Account Holder</label>
+                                <input type="text" name="account_holder" id="accountHolder"
+                                    placeholder="Account Holder Name" class="col input" required>
+                            </div>
+
+                            <div class="row">
+                                <label for="UPIID" class="label-filed">UPI ID</label>
+                                <input type="text" name="UPI_ID" id="UPIID" placeholder="UPI ID" class="col input"
+                                    required>
+                            </div>
+
+                            <div class="btns center-btn">
+                                <button type="submit" class="btn btn-submit">Update</button>&nbsp;
+                                <a id="c1" class="btn btn-cancel">Cancel</a>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+                <script>
+                    $(document).ready(() => {
+
+                        const coulmns = [
+                            {
+                                "data": "user.username",
+                                "name": "name",
+                                "title": "name",
+                                visible: true
+                            },
+                            {
+                                data: "store.storeName",
+                                name: "storeName",
+                                title: "Store Name"
+                            },
+                            {
+                                data: "_id",
+                                name: "_id",
+                                visible: false
+                            },
+                            {
+                                data: 'store.storeStatus',
+                                name: 'store',
+                                title: 'Service status',
+
+                                render: (data) => {
+
+                                    if (data) {
+                                        return '<span class="badge badge-success">active</span>'
+                                    } else {
+                                        return '<span class="badge badge-dark">inActive</span>'
+                                    }
+
+                                }
+                            }, {
+                                data: null,
+                                title: 'Options',
+                                defaultContent: `<span id="WH" class="seller-options WH">Working Hrs</span>
+                            &nbsp;
+                            <span id="Settlment" class="seller-options settlement">Settlement</span>
+                            &nbsp;
+                            <span id="Bank" class="seller-options bank">Bank</span>
+                            
+                            `
+                            }
+
+                        ];
+
+                        console.log("initialize the document part 1");
+
+                        const requestDetails = {
+                            ajaxURL: '/sellers/requests?request_status=Accepted',
+                            mainURL: "/sellers/new-requests",
+                            mainPage: "/sellers/accepted-sellers",
+                            updateURL: '/sellers/review-seller',
+                            sessionProperty: 'sellerId'
+                        }
+
+                        initializeDoc(coulmns, requestDetails);
+                    })
+                </script>
+
+                <script>
+
+                    // $(document).on("load", () => {
+                    //     sessionStorage.setItem("sellerId", "");
+                    //     console.log("seller id is ", sessionStorage.getItem("sellerId"));
+                    // })
+                    $(document).ready(() => {
+                        const workinhHours = $('#WH');
+                        const settlment = $('Settlment');
+                        const bank = $('Bank');
+
+                        const WHcoverCont = $('#cc0');
+                        const bankcoverCont = $('#cc1');
+
+                        WHcoverCont.hide();
+                        bankcoverCont.hide();
+
+                        const WH_cont = $('#WH-cont');
+                        const settlment_cont = $('#settlment-cont');
+                        const bank_cont = $('#bank-cont');
+
+
+                        WH_cont.slideUp(0);
+                        settlment_cont.slideUp()
+                        bank_cont.slideUp(0)
+
+
+                        // $(".btn-cancel").each(() => {
+                        //     $(this).on("click", () => {
+
+
+                        //     })
+                        // })
+                        $("#c1").on("click", () => {
+                            bank_cont.slideToggle(500, () => {
+                                bankcoverCont.toggle();
+                            })
+                        });
+
+                        $("#c0").on("click", () => {
+                            WH_cont.slideToggle(500, () => {
+                                WHcoverCont.toggle();
+                            })
+                        });
+
+                        $('#example').on('click', 'span.WH', function () {
+                            console.log($(this));
+                            handelCustomEvent($(this), 'sellerId');
+
+                            console.log(sessionStorage.getItem("sellerId"));
+
+                            WHcoverCont.toggle(0, () => {
+
+                                fetchWorkingHouresDetails(displayWorkingHouresDetails);
+
+                            });
+                            WH_cont.slideToggle(500);
+
+
+                        });
+
+                        $('#example').on('click', 'span.bank', function () {
+
+                            handelCustomEvent($(this), 'sellerId');
+
+                            console.log(sessionStorage.getItem("sellerId"));
+
+                            bankcoverCont.toggle(0, () => {
+                                fetchBankInfoDetails(displayBankInfoDetails);
+                            });
+
+                            bank_cont.slideToggle(500);
+                        });
+
+                        $('#example').on('click', 'span.settlement', () => {
+                            // settlment_cont.slideToggle(500);
+                            location.assign("/sellers/seller-settlement")
+                        });
+
+                        // $('#example').;
+
+
+                        $('#example.seller-options').css("padding", '12px');
+                        $('#example.seller-options').css("background-color", 'blue');
+                        $('#example.seller-options').css("pointer", 'cursor');
+
+
+
+                        $("#WH-close").on("click", () => {
+
+                            WH_cont.slideToggle(500, () => {
+                                WHcoverCont.toggle();
+                            });
+                            // coverCont.toggle();
+                        })
+
+                        $("#Settlment-close").on("click", () => {
+                            settlment_cont.slideToggle(500);
+                        })
+
+                        $("#bank-close").on("click", () => {
+                            bank_cont.slideToggle(500, () => {
+                                bankcoverCont.toggle();
+                            });
+
+                        })
+
+                        workinhHours.on("click", () => {
+                            WH_cont.slideToggle(500)
+                        })
+
+                        settlment.on("click", () => {
+                            settlment_cont.slideToggle(500)
+                        })
+
+
+                        bank.on("click", () => {
+                            bank_cont.slideToggle(500)
+                        })
+
+
+                        const WH_form = document.querySelector('#WH-form');
+                        let fetchedData = {};
+
+                        async function fetchWorkingHouresDetails(displayWorkingHouresDetails) {
+
+                            const resonse = await fetch(`/sellers/store/working-hours/${sessionStorage.getItem('sellerId')}`,
+                                {
+                                    method: "GET",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                    }
+                                }
+                            )
+
+                            const data = await resonse.json();
+                            console.log("data is", data);
+
+
+
+                            const { workingHoures } = data.response.store;
+                            fetchedData = workingHoures;
+
+                            console.log("working houres", workingHoures)
+
+                            displayWorkingHouresDetails(workingHoures);
+
+                            // updateWorkingHoures(workingHoures)
+
+                        }
+
+                        WH_form.addEventListener("submit", (event) => {
+                            event.preventDefault();
+
+                            updateWorkingHoures();
+                        });
+
+
+
+                        async function updateWorkingHoures() {
+
+                            console.log("inside update working houres", fetchedData);
+
+                           let { activeDays } = fetchedData;
+
+                           let { active_days_list } = activeDays;
+
+                            let {
+                                sat,
+                                sun,
+                                mon,
+                                tue,
+                                wed,
+                                thu,
+                                fri
+
+                            } = active_days_list;
+
+
+                            let { openedAt, closedAt } = fetchedData;
+
+                            openedAt = WH_form.open_time.value;
+                            closedAt = WH_form.close_time.value;
+
+                            sat = WH_form.sat.checked;
+                            sun = WH_form.sun.checked;
+                            mon = WH_form.mon.checked;
+                            tue = WH_form.tue.checked;
+                            wed = WH_form.wed.checked;
+                            thu = WH_form.thu.checked;
+                            fri = WH_form.fri.checked;
+
+                            active_days_list = {
+                                sat,
+                                sun,
+                                mon,
+                                tue,
+                                wed,
+                                thu,
+                                fri
+                            }
+
+                            activeDays = { active_days_list }
+
+                            fetchedData.activeDays = activeDays
+                            fetchedData.openedAt = openedAt,
+                            fetchedData.closedAt = closedAt 
+
+                            console.log("data before updating ", fetchedData);
+
+                            //    const active_days_list = { sat, sun, mon, tue, wed, thu, fri };
+
+
+                            const resonse = await fetch(`/sellers/store/working-hours/${sessionStorage.getItem('sellerId')}`,
+                                {
+                                    method: "PUT",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                    },
+                                    body: JSON.stringify({ workingHoures: fetchedData })
+
+                                }
+                            )
+
+                            const data = await resonse.json();
+
+                            console.log("updtaed data", data);
+
+                        }
+
+
+                        function displayWorkingHouresDetails(workingHoures) {
+                            initializeWorkingHouresDetails();
+                            console.log(workingHoures);
+                            console.log(workingHoures.activeDays);
+
+                            const {
+                                sat,
+                                sun,
+                                mon,
+                                tue,
+                                wed,
+                                thu,
+                                fri
+
+                            } = workingHoures.activeDays.active_days_list;
+
+
+                            //  initializeBankInfoContainer()
+                            WH_form.open_time.value = workingHoures.openedAt;
+                            WH_form.close_time.value = workingHoures.closedAt;
+                            WH_form.sat.checked = sat;
+                            WH_form.sun.checked = sun;
+                            WH_form.mon.checked = mon;
+                            WH_form.tue.checked = tue;
+                            WH_form.wed.checked = wed;
+                            WH_form.thu.checked = thu;
+                            WH_form.fri.checked = fri;
+                        }
+
+                        function initializeWorkingHouresDetails() {
+                            WH_form.open_time.value = "";
+                            WH_form.close_time.value = "";
+                            WH_form.sat.checked = false;
+                            WH_form.sun.checked = false;
+                            WH_form.mon.checked = false;
+                            WH_form.tue.checked = false;
+                            WH_form.wed.checked = false;
+                            WH_form.thu.checked = false;
+                            WH_form.fri.checked = false;
+                        }
+
+
+                        const Bank_form = document.querySelector('#Bank-form');
+                        async function fetchBankInfoDetails(displayBankInfoDetails) {
+
+                            const resonse = await fetch(`/sellers/bank-information/${sessionStorage.getItem('sellerId')}`,
+                                {
+                                    method: "GET",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                    }
+                                }
+                            )
+
+                            const data = await resonse.json();
+                            console.log("data is", data);
+
+                            const { bankDetails } = data.response;
+
+                            console.log("bank information", bankDetails);
+
+                            displayBankInfoDetails(bankDetails);
+
+                        }
+
+                        function displayBankInfoDetails(bankDetails) {
+                            initializeBankInfoContainer()
+                            const {
+                                bank_name,
+                                account_number,
+                                IFSC,
+                                branch_name,
+                                account_holder,
+                                UPI_ID
+                            } = bankDetails;
+                            Bank_form.bank_name.value = bank_name;
+                            Bank_form.account_number.value = account_number;
+                            Bank_form.UPI_ID.value = UPI_ID;
+                            Bank_form.branch_name.value = branch_name;
+                            Bank_form.account_holder.value = account_holder
+                            Bank_form.IFSC.value = IFSC
+                        }
+
+                        function initializeBankInfoContainer() {
+                            Bank_form.bank_name.value = "";
+                            Bank_form.account_number.value = "";
+                            Bank_form.UPI_ID.value = "";
+                            Bank_form.branch_name.value = "";
+                            Bank_form.account_holder.value = ""
+                            Bank_form.IFSC.value = ""
+                            // $.each(".input", function () {
+                            // //    console.log($(this).attr("value"));
+                            //     $(this).attr("value", "");
+                            // });
+                        }
+
+
+
+
+                        Bank_form.addEventListener("submit", (event) => {
+                            event.preventDefault();
+
+                            updateBankDetails()
+
+
+                        });
+
+
+                        function updateBankDetails() {
+
+                        }
+                    })
+                </script>
+
+        </body>
+
+
+
+</html>

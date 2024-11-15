@@ -1,0 +1,42 @@
+<div class="displayedContent">
+
+    <div class="header">
+        <h1>Ecom.Products</h1>
+
+        <div>
+            <i class="fa fa-tachometer icon-1" aria-hidden="true"></i>&nbsp;
+            <a href="/dashboard">Home</a>&nbsp;
+            <i class="fa-solid fa-angle-right"></i>&nbsp;
+            <a href="/products">Ecom.Products</a>&nbsp;
+            <i class="fa-solid fa-angle-right"></i>&nbsp;
+            <a href="/products/<%= action %>"><%= type %> Product</a>&nbsp;
+        </div>
+
+    </div>
+
+
+    <h2 class="mainHeader"><%= type %> Product</h2>
+
+    <%- include('./product-form') %>
+
+</div>
+
+<div class="cover">
+    <div class="alert" id="userInputCont">
+        <i id="close" class="fa-solid fa-xmark user-btn"></i>
+        <h3>Please select a size to be added on size list</h3>
+
+        <span class="userInput">
+            <select id="userInput">
+                <option value="Normal" data-name="Normal">Normal</option>
+                <option value="X-Small" data-name="X-Small">X-Small</option>
+                <option value="X-Large" data-name="X-Large">X-Large</option>
+                <option value="XX-Large" data-name="XX-Large">XX-Large</option>
+                <option value="XXX-Large" data-name="XXX-Large">XXX-Large</option>
+                <option value="Over Size" data-name="Over Size">Over Size</option>
+            </select>
+            <span class="user-btn" id="next"><i class="fa-solid fa-arrow-right"></i></span>
+        </span>
+
+    </div>
+</div>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../../partials/admin/datatable-head')%>
+
+<body>
+
+
+    <%- include('../../partials/admin/datatable-body')%>
+
+      <script>
+        $(document).ready(() => {
+            const coulmns = [
+            {
+                        "data": "_id",
+                        "name": "_id",
+                        "title": "Record _id",
+                    },
+                    {
+                        "data": "name",
+                        "name": "name",
+                        "title": "Name",
+                    },
+                    {
+                        "data": "description",
+                        "name": "description",
+                        "title": "Description",
+                    },  
+                    {
+                        "data": "image",
+                        "name": "image",
+                        "title": "Image"
+                    },
+                    {
+                        "data": "category.name",
+                        "name": "category",
+                        "title": "Category"
+                    }
+            ];
+
+            console.log("initialize the document part 1");
+
+            const requestDetails = {
+                ajaxURL: '/sub-categories/getAll',
+                mainURL: "/sub-categories",
+                mainPage: "/sub-categories",
+                updateURL: '/sub-categories/update-subcategory',
+                sessionProperty: 'subCategoryId'
+            }
+
+            initializeDoc(coulmns, requestDetails);
+        })
+    </script>
+
+
+    <!-- <script>
+
+        $.extend($.fn.dataTable.defaults, {
+            responsive: true
+        });
+        $(document).ready(function () {
+            let dt = $('#example').DataTable({
+                // responsive: true,
+                responsive: {
+                    details: {
+                        display: $.fn.dataTable.Responsive.display.modal({
+                            header: function (row) {
+                                var data = row.data();
+                                console.log(data);
+                                return 'Details for ' + data.name;
+                            }
+                        }),
+                        renderer: $.fn.dataTable.Responsive.renderer.tableAll()
+                    }
+                },
+                order: [
+                    [2, 'desc'],
+                    [0, 'asc']
+                ],
+                selectable: true,
+                serverside: true,
+                "loading": true,
+                "processing": true,
+                "initComplete": function (settings, json) {
+                    $('#example').show();
+                },
+                "select": true,
+                "bFilter": true,
+                "bInfo": false,
+                "bPaginate": true,
+                "columns": [
+                    {
+                        "data": "_id",
+                        "name": "_id",
+                        "title": "Record _id",
+                    },
+                    {
+                        "data": "name",
+                        "name": "name",
+                        "title": "Name",
+                    },
+                    {
+                        "data": "description",
+                        "name": "description",
+                        "title": "Description",
+                    },
+                    {
+                        "data": "image",
+                        "name": "image",
+                        "title": "Image"
+                    },
+                    {
+                        "data": "category",
+                        "name": "category",
+                        "title": "Category",
+                        visible: false,
+                    },
+                    // {
+                    //     data: null,
+                    //     title: "Category",
+                    //     render: function(data, type, row, meta) {
+                    //         // return row.category;
+                            
+
+                    //         const req = new XMLHttpRequest();
+                    //         req.open('GET', `/categories/${row.category}`);
+
+                    //         req.onload = function () {
+                    //             const res = JSON.parse(this.responseText)
+                    //             console.log(res.name);
+        
+                    //         }
+                    //         req.send();
+                        
+                
+                    //         // const response =  fetch(`/categories/${row.category}`, {
+                    //         //     method: "GET",
+                    //         //     headers: {
+                    //         //         'Content-Type': "application/json"
+                    //         //     },
+                    //         // });
+
+                    //         // const category = await response.json();
+                    //         // console.log(category);
+                    //         // console.log(category.name);
+                    //         // return  category._id;
+                            
+                    //         // const res = $.getJSON(`/categories/${row.category}`, (res) => {
+                    //         //     console.log(res);
+                    //         //     console.log(res.name);
+                    //         //     return res.name;
+                    //         // });
+                            
+                            
+                    //     },
+                    //     orderable: true
+                    // },
+                    {
+                        data: null,
+                        className: "dt-center editor-edit",
+                        defaultContent: '<i class="fa fa-solid fa-eye"/>',
+                        orderable: false,
+                        sortable: false
+                    },
+                    {
+                        data: null,
+                        className: "dt-center editor-edit",
+                        defaultContent: '<a><i class="fa fa-pencil"/></a>',
+                        orderable: false
+                    },
+                    {
+                        data: null,
+                        className: "dt-center editor-delete",
+                        defaultContent: '<span><i class="fa fa-trash"/></span>',
+                        orderable: false
+                    }
+                ],
+                "language": {
+                    "emptyTable": "No data to show!"
+                },
+
+                "ajax": {
+                    "type": "get",
+                    "url": "/sub-categories/getAll",
+                    "content-type": "application/json, utf-8",
+                    "dataType": "json",
+                    "dataSrc": ""
+                },
+                // search: {
+                //     return: true,
+                // },
+                // searching: true
+
+            });
+
+            $('#example').on('click', 'a', function () {
+                // alert("activityTable");
+                var data = dt.row($(this).parents('tr')).data();
+                // alert("here");
+                sessionStorage.setItem('subCategoryId', data._id)
+                // alert("The ID is: " + sessionStorage.getItem('categoryId'));
+
+                location.assign('/sub-categories/update-subCategory');
+            });
+
+            const cover = $(".cover");
+
+            $('#example').on('click', 'span', function () {
+
+                var data = dt.row($(this).parents('tr')).data();
+                sessionStorage.setItem('subCategoryId', data._id)
+
+                cover.css('display', 'block');
+                // cover.toggle(1000);
+
+                const yes = $('.yes');
+                const no = $('.no');
+
+
+
+                yes.on('click', async () => {
+                    console.log(sessionStorage.getItem('subCategoryId'));
+                    const res = await fetch(`/sub-categories/${sessionStorage.getItem('subCategoryId')}`, {
+                        method: "DELETE",
+
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+
+                    });
+
+                    const jsonData = await res.json();
+
+                    console.log(jsonData);
+                    location.assign('/sub-categories');
+                });
+
+                no.on('click', () => {
+                    // alert.style.display = 'none';
+                    // cover.style.display = 'none';
+                    // cover.toggle(1000);
+                    cover.css('display', 'none');
+                });
+            });
+        });
+
+        // $.fn.dataTable.ext.errMode = 'alert';
+    </script> -->
+</body>
+</html>

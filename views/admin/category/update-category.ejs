@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EBuy | Ecommerce Website Design</title>
+    <link rel="stylesheet" href="/styles/admin.css">
+    <link rel="stylesheet" href="/styles/newcategory.css">
+    <link href="https://fonts.googleapis.com/css2?
+    family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a88d896878.js" crossorigin="anonymous"></script>
+</head> -->
+
+<%- include("../../partials/admin/head.ejs") %>
+
+<body>
+    <div class="container">
+
+        <%- include('../../partials/admin/header.ejs')%>
+
+            <!-- Create the main part of the admin page -->
+            <div class="main-content">
+                <%- include('../../partials/admin/minu.ejs')%>
+
+                <%- include("./main") %>
+                
+            </div>
+    </div>
+
+    <script src="/scripts/adminScripts/category-functions.js"></script>
+    <script>
+        // const form = document.querySelector('form');
+
+
+
+        let name = form.name.value;
+        let nameMalayma = form.name_malayma.value;
+        let description = form.description.value;
+        let dailyProduct = form.daily_product.value;
+        let currentImage = document.querySelector('#img');
+        let favoriteStatus = form.favorite_status.value;
+        let status = form.status.value;
+
+        console.log(currentImage.src);
+
+        console.log(sessionStorage.getItem('categoryId'));
+        document.body.onload = async () => {
+            const res = await fetch(`/categories/${sessionStorage.getItem('categoryId')}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            });
+
+            const category = await res.json();
+
+            console.log((category));
+
+            name = category.name;
+            nameMalayma = category.nameMalayma;
+            status = category.status;
+            dailyProduct = category.dailyProduct;
+            let src = "/images/" + category.image;
+            description = category.description;
+            favoriteStatus = category.favoriteStatus;
+
+
+            // console.log(name, nameMalayma, dailyProduct, description, image, status, favoriteStatus);
+
+            form.name.value = name;
+            form.name_malayma.value = nameMalayma;
+            form.description.value = description;
+            form.daily_product.value = dailyProduct ? 'Yes' : 'No';
+            currentImage.src = src;
+            form.favorite_status.value = favoriteStatus ? 'Yes' : 'No';
+            form.status.value = status ? 'active' : 'inActive';
+            console.log("image is: ", currentImage.src);
+        }
+
+        form.addEventListener('submit', async (e) => {
+
+            e.preventDefault();
+
+            name = form.name.value;
+            nameMalayma = form.name_malayma.value;
+            description = form.description.value;
+            dailyProduct = form.daily_product.value;
+            let absImage = form.image.value.split('\\');
+
+            const image = absImage[2];
+            favoriteStatus = form.favorite_status.value;
+            status = form.status.value;
+
+            const res = await fetch(`/categories/${sessionStorage.getItem('categoryId')}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ name, nameMalayma, dailyProduct, description, image, status, favoriteStatus })
+            });
+        
+
+            const data = await res.json();
+
+            console.log(data);
+
+            if (data) {
+                location.assign('/categories');
+            }
+        })
+    </script>
+
+</body>
+
+</html>

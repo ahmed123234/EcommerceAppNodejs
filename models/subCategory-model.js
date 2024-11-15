@@ -14,6 +14,12 @@ const subCategorySchema = new Schema ({
     }, 
     image: {
         type : Schema.Types.String
+    },
+    status: {
+        type: Schema.Types.Boolean
+    },
+    favoriteStatus: {
+        type: Schema.Types.Boolean
     }
 });
 
